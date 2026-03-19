@@ -81,6 +81,23 @@ npm run dev
 
 ---
 
+Zapoznałem się z regulaminem i go akceptuję:
+-Michalski M.
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
 
-Michalski M.
 
