@@ -1,5 +1,5 @@
-# 🧠 MEGA MAPA DOROBKU LUDZKOŚCI
-## 📁 Struktura projektu
+#  MEGA MAPA DOROBKU LUDZKOŚCI
+##  Struktura projektu
 
 ```
 src/
@@ -24,7 +24,7 @@ src/
 
 ---
 
-## 🚀 Uruchomienie
+##  Uruchomienie
 
 ```bash
 npm install
@@ -33,7 +33,7 @@ npm run dev
 
 ---
 
-## ⚠️ NIE DOTYKAĆ (chyba że wiesz co robisz)
+##  NIE DOTYKAĆ (chyba że wiesz co robisz)
 
 * node_modules/
 * package.json
@@ -44,14 +44,14 @@ npm run dev
 
 ---
 
-## ⚠️ OSTROŻNIE ZMIENIAĆ
+##  OSTROŻNIE ZMIENIAĆ
 
 * src/App.jsx (główny layout aplikacji)
 * src/pages/App.jsx (jeśli używany jako router / widok)
 
 ---
 
-## ✅ MOŻNA EDYTOWAĆ
+##  MOŻNA EDYTOWAĆ
 
 * src/pages/g1/Group1.jsx
 * src/pages/g2/Group2.jsx
@@ -63,7 +63,7 @@ npm run dev
 
 ---
 
-## 🚫 Czego NIE robić
+##  Czego NIE robić
 
 * Nie wrzucaj błędów (sprawdzaj czy działa)
 * Nie usuwaj plików bez powodu
@@ -73,7 +73,7 @@ npm run dev
 
 
 
-## ✅ Dobre praktyki
+##  Dobre praktyki
 
 * Każda grupa robi swój plik (g1–g4)
 * Małe commity (np. "dodano dane do g1")
