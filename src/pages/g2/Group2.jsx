@@ -1,4 +1,4 @@
-function Group1() {
+function Group2() {
     return (
       <div>
         <h1>Grupa 2</h1>
@@ -7,4 +7,4 @@ function Group1() {
     );
   }
   
-  export default Group1;    
+  export default Group2;    
