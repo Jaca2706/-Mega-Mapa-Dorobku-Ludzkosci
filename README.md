@@ -1,16 +1,83 @@
-# React + Vite
+# 🧠 MEGA MAPA DOROBKU LUDZKOŚCI
+## 📁 Struktura projektu
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```
+src/
+ ├── assets/        # pliki graficzne
+ ├── baza/          # dane (np. JSON)
+ ├── pages/
+ │    ├── g1/
+ │    │    └── Group1.jsx
+ │    ├── g2/
+ │    │    └── Group2.jsx
+ │    ├── g3/
+ │    │    └── Group3.jsx
+ │    ├── g4/
+ │    │    └── Group4.jsx
+ │    ├── App.jsx
+ │    ├── MindMap.jsx
+ │    └── Home.jsx
+ ├── App.jsx        # główny komponent
+ ├── main.jsx       # punkt startowy
+ └── index.css
+```
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Uruchomienie
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚠️ NIE DOTYKAĆ (chyba że wiesz co robisz)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* node_modules/
+* package.json
+* package-lock.json
+* vite.config.js
+* eslint.config.js
+* main.jsx (odpala całą aplikację)
+
+---
+
+## ⚠️ OSTROŻNIE ZMIENIAĆ
+
+* src/App.jsx (główny layout aplikacji)
+* src/pages/App.jsx (jeśli używany jako router / widok)
+
+---
+
+## ✅ MOŻNA EDYTOWAĆ
+
+* src/pages/g1/Group1.jsx
+* src/pages/g2/Group2.jsx
+* src/pages/g3/Group3.jsx
+* src/pages/g4/Group4.jsx
+* src/pages/Home.jsx
+* src/assets/
+* src/baza/
+
+---
+
+## 🚫 Czego NIE robić
+
+* Nie wrzucaj błędów (sprawdzaj czy działa)
+* Nie usuwaj plików bez powodu
+* Nie zmieniaj struktury folderów
+
+
+
+
+
+## ✅ Dobre praktyki
+
+* Każda grupa robi swój plik (g1–g4)
+* Małe commity (np. "dodano dane do g1")
+* Testuj przed commit
+
+---
+
