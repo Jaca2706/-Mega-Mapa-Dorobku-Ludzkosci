@@ -1,4 +1,4 @@
-function Group1() {
+function Group4() {
   return (
     <div>
       <h1>Grupa 4</h1>
@@ -8,4 +8,4 @@ function Group1() {
   );
 }
 
-export default Group1;
+export default Group4;
