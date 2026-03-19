@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  margin: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px;
+}
+
+.timeline {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.timeline-item {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.timeline-item:hover {
+  background: #334155;
+}
+
+.year {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.details {
+  margin-top: 30px;
+  padding: 20px;
+  background: #1e293b;
+  border-radius: 10px;
+}
