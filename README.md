@@ -81,3 +81,23 @@ npm run dev
 
 ---
 
+Zapoznałem się z regulaminem i go akceptuję:
+-Michalski M.(wice admin)
+-Jacek P. (admin)
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+
+

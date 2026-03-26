@@ -1,10 +1,10 @@
-function Group3() {
-  return (
-    <div>
-      <h1>Grupa 3</h1>
-      <p>Tutaj będzie interaktywna oś c mega test zasu tej grupy.</p>
-    </div>
-  );
-}
+import Timeline from "./timeline/Timeline"
+import { timelineData } from "../../baza/timelineData"
 
-export default Group3;
+export default function Group3() {
+  return (
+    <div style={{ height: "100vh" }}>
+      <Timeline events={timelineData} />
+    </div>
+  )
+}
