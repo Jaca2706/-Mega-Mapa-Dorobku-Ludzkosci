@@ -22,6 +22,13 @@ const nodesData = [
     x: 800,
     y: 300,
   },
+  {
+    id: 4,
+    title: "Karl Marx",
+    description: "wymyslil komunizm i cos tam",
+    x: 200,
+    y: 100,
+  }
 ];
 
 const connections = [
