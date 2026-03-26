@@ -27,6 +27,15 @@ const getEventsForPeriod = (start, end) => {
 
 function Group1() {
   const [wybrany, setWybrany] = useState(null);
+  const [wybranyEvent, setWybranyEvent] = useState(null); // śledzi kliknięte wydarzenie
+
+const handleEventClick = (event) => {
+  setWybranyEvent(event.id === wybranyEvent ? null : event.id);
+};
+
+const getEventDetails = (id) => {
+  return historyData.find(item => item.id === id);
+};
 
   const formatYear = (year) => {
     if (year < 0) return `${Math.abs(year)} p.n.e.`;
@@ -88,17 +97,34 @@ function Group1() {
               <div className="period-range">
                 📅 {formatYear(selectedPeriod.start)} – {formatYear(selectedPeriod.koniec)}
               </div>
-              <ul>
-                {wydarzenia.length > 0 ? (
-                  wydarzenia.map((item) => (
-                    <li key={item.id}>
-                      <strong>{item.title.short}</strong> – {item.time.label}
-                    </li>
-                  ))
-                ) : (
-                  <li>📖 Brak wydarzeń dla tej epoki</li>
-                )}
-              </ul>
+              <ul className="timeline-events-list">
+  {wydarzenia.length > 0 ? (
+    wydarzenia.map((item) => (
+      <li 
+        key={item.id} 
+        className={`timeline-event-item ${wybranyEvent === item.id ? "active-event" : ""}`}
+        onClick={(e) => { e.stopPropagation(); handleEventClick(item); }}
+      >
+        <strong>{item.title.short}</strong> – {item.time.label}
+
+        {wybranyEvent === item.id && (
+          <div className="timeline-event-details">
+            <p>{item.description}</p>
+            {item.media.image && <img src={item.media.image} alt={item.title.short} />}
+            {item.media.video && <video src={item.media.video} controls />}
+            <div className="event-meta">
+              <div>🌍 {item.country}</div>
+              <div>📂 Kategorie: {item.categories.join(", ")}</div>
+              <div>🏷️ Tag: {item.tags.join(", ")}</div>
+            </div>
+          </div>
+        )}
+      </li>
+    ))
+  ) : (
+    <li>📖 Brak wydarzeń dla tej epoki</li>
+  )}
+</ul>
             </div>
           );
         })()}
