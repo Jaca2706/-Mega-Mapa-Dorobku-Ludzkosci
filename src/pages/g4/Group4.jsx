@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const nodesData = [
   {
     id: 1,
-    title: "Rewolucja przemysłowa",
-    description: "Okres gwałtownego rozwoju technologii i przemysłu.",
+    title: "krytyka narzuconych ograniczeń",
+    description: "",
     x: 100,
     y: 200,
   },
@@ -28,7 +28,14 @@ const nodesData = [
     description: "wymyslil komunizm i cos tam",
     x: 200,
     y: 100,
-  }
+  },
+  {
+    id: 5,
+    title: "Marksizm",
+    description: "",
+    x: ,
+    y: ,
+  },
 ];
 
 const connections = [
