@@ -1,82 +1,179 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-let idCounter = 1;
+const nodesData = [
+  {
+    id: 1,
+    title: "Rewolucja przemysłowa",
+    description: "Okres gwałtownego rozwoju technologii i przemysłu.",
+    x: 100,
+    y: 200,
+  },
+  {
+    id: 2,
+    title: "Internet",
+    description: "Globalna sieć komunikacyjna zmieniająca świat.",
+    x: 500,
+    y: 100,
+  },
+  {
+    id: 3,
+    title: "Sztuczna inteligencja",
+    description: "Systemy uczące się i podejmujące decyzje.",
+    x: 800,
+    y: 300,
+  },
+];
 
-function Group4() {
-  const [nodes, setNodes] = useState([]);
+const connections = [
+  { from: 1, to: 2 },
+  { from: 2, to: 3 },
+];
 
-  const addNode = (parentId = null, x = 400, y = 250) => {
-    const newNode = {
-      id: idCounter++,
-      text: "Nowy",
-      x,
-      y,
-      parent: parentId,
-    };
+export default function Group4() {
+  const [activeNode, setActiveNode] = useState(null);
 
-    setNodes([...nodes, newNode]);
-  };
+  const getNodeById = (id) => nodesData.find((n) => n.id === id);
 
   return (
-    <div>
-      <h1>Mapa myśli - Grupa 4</h1>
+    <div style={{ fontFamily: "Arial, sans-serif" }}>
+      {/* ================= HEADER ================= */}
+      <header
+        style={{
+          background: "#1e293b",
+          color: "white",
+          padding: "20px",
+          textAlign: "center",
+        }}
+      >
+        <h1>Mapa dorobku ludzkości</h1>
+        <h3>Interaktywna sieć powiązań</h3>
+      </header>
 
-      {/* Przycisk startowy */}
-      {nodes.length === 0 && (
-        <button onClick={() => addNode(null)}>
-          Dodaj pierwszy element
-        </button>
-      )}
+      {/* ================= INTRO ================= */}
+      <section
+        style={{
+          display: "flex",
+          padding: "30px",
+          gap: "40px",
+        }}
+      >
+        {/* LEFT */}
+        <div style={{ flex: 1 }}>
+          <h2>Witaj!</h2>
+          <p>
+            To interaktywna mapa przedstawiająca najważniejsze osiągnięcia
+            ludzkości oraz powiązania między nimi.
+          </p>
+        </div>
 
-      <svg width="800" height="500" style={{ border: "1px solid #ccc" }}>
-        {/* Linie */}
-        {nodes.map((node) => {
-          if (node.parent === null) return null;
-          const parent = nodes.find((n) => n.id === node.parent);
+        {/* RIGHT */}
+        <div style={{ flex: 1 }}>
+          <h2>Jak działa mapa?</h2>
+          <ul>
+            <li>Kliknij blok, aby zobaczyć szczegóły</li>
+            <li>Linie pokazują powiązania</li>
+            <li>Możesz analizować zależności</li>
+          </ul>
+        </div>
+      </section>
 
-          return (
-            <line
-              key={`line-${node.id}`}
-              x1={parent.x}
-              y1={parent.y}
-              x2={node.x}
-              y2={node.y}
-              stroke="black"
-            />
-          );
-        })}
+      {/* ================= NETWORK ================= */}
+      <section
+        style={{
+          position: "relative",
+          height: "600px",
+          borderTop: "2px solid #ccc",
+        }}
+      >
+        {/* SVG CONNECTIONS */}
+        <svg
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            zIndex: 0,
+          }}
+        >
+          {connections.map((conn, index) => {
+            const from = getNodeById(conn.from);
+            const to = getNodeById(conn.to);
 
-        {/* Node’y */}
-        {nodes.map((node) => (
-          <g key={node.id}>
-            <circle cx={node.x} cy={node.y} r="30" fill="#FF5722" />
-            <text
-              x={node.x}
-              y={node.y}
-              textAnchor="middle"
-              dy=".3em"
-              fill="white"
-              fontSize="10"
-            >
-              {node.text}
-            </text>
+            return (
+              <line
+                key={index}
+                x1={from.x + 75}
+                y1={from.y + 50}
+                x2={to.x + 75}
+                y2={to.y + 50}
+                stroke="black"
+                strokeWidth="2"
+              />
+            );
+          })}
+        </svg>
 
-            {/* Dodawanie dzieci */}
-            <foreignObject
-              x={node.x - 15}
-              y={node.y + 30}
-              width="30"
-              height="30"
-            >
-              <button onClick={() => addNode(node.id, node.x + 80, node.y)}>
-                +
-              </button>
-            </foreignObject>
-          </g>
+        {/* CENTRAL NODE */}
+        <div
+          style={{
+            position: "absolute",
+            top: "250px",
+            left: "45%",
+            width: "200px",
+            padding: "15px",
+            background: "#0ea5e9",
+            color: "white",
+            textAlign: "center",
+            borderRadius: "10px",
+            zIndex: 2,
+          }}
+        >
+          <strong>Dorobek ludzkości</strong>
+        </div>
+
+        {/* NODES */}
+        {nodesData.map((node) => (
+          <div
+            key={node.id}
+            onClick={() => setActiveNode(node)}
+            style={{
+              position: "absolute",
+              top: node.y,
+              left: node.x,
+              width: "150px",
+              padding: "10px",
+              background: "#f1f5f9",
+              border: "1px solid #ccc",
+              borderRadius: "10px",
+              cursor: "pointer",
+              zIndex: 2,
+              transition: "0.2s",
+            }}
+          >
+            <strong>{node.title}</strong>
+          </div>
         ))}
-      </svg>
+
+        {/* POPUP */}
+        {activeNode && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              left: "20px",
+              background: "white",
+              padding: "20px",
+              border: "1px solid #ccc",
+              borderRadius: "10px",
+              width: "300px",
+              zIndex: 3,
+            }}
+          >
+            <h3>{activeNode.title}</h3>
+            <p>{activeNode.description}</p>
+            <button onClick={() => setActiveNode(null)}>Zamknij</button>
+          </div>
+        )}
+      </section>
     </div>
   );
 }
-
-export default Group4;
