@@ -40,9 +40,9 @@ const nodesData = [
     id: 5,
     title: "Marksizm",
     description: "",
-    x: ,
-    y: ,
-  },
+    x: 5,
+    y: 7,
+  }
 ];
 
 const connections = [
