@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { historyData } from "./../../baza/baza.js";
+import { historyData } from "./epochsData.js";
 import Legend from "./components/Legend.jsx";
 import TimelineCard from "./components/TimelineCard.jsx";
 
