@@ -1,44 +1,49 @@
 import React, { useState } from "react";
 
 const nodesData = [
-  { id: 1, title: "Krytyka narzuconych ograniczeń", description: "", x: 150, y: 200 },
-  { id: 2, title: "Indywidualizm", description: "", x: 50, y: 300 },
-  { id: 3, title: "Egzystencjalizm", description: "", x: 250, y: 350 },
-  { id: 4, title: "Karl Marx", description: "Wymyślił komunizm i cos tam", image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg", x: 400, y: 100 },
-  { id: 5, title: "Marksizm", description: "", x: 550, y: 50 },
-  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 1905 – zm. 1980)", image: "https://www.the-tls.com/wp-content/uploads/2019/11/Sartre.jpg", x: 100, y: 50 },
-  { id: 7, title: "Nihilizm", description: "", x: 300, y: 450 },
-  { id: 8, title: "Empiryzm", description: "", x: 500, y: 500 },
-  { id: 9, title: "Modernizm", description: "", x: 750, y: 200 },
-  { id: 10, title: "Surrealizm", description: "", x: 850, y: 100 },
-  { id: 11, title: "Kubizm", description: "", x: 900, y: 300 },
-  { id: 12, title: "Rozwój społeczeństwa", description: "", x: 600, y: 400 },
-  { id: 13, title: "Prawa człowieka", description: "", x: 400, y: 300 },
-  { id: 14, title: "Ascetyzm", description: "", x: 1100, y: 200 },
-  { id: 15, title: "Poświęcenie dla dobra ogółu", description: "", x: 1000, y: 420 },
-  { id: 16, title: "Racjonalizm", description: "", x: 800, y: 400 },
-  { id: 17, title: "Przekraczanie granic", description: "", x: 1300, y: 150 }, 
-  { id: 18, title: "Autentyczność i rozwój", description: "", x: 150, y: 100 },
-{ id: 19, title: "Podważanie prawd i dogmatów", description: "", x: 300, y: 120 },
-{ id: 20, title: "Krytyka religii i wartości", description: "", x: 450, y: 140 },
-{ id: 21, title: "Krytyka kapitalizmu", description: "", x: 600, y: 160 },
-{ id: 22, title: "Zagubienie jednostki", description: "", x: 750, y: 180 },
-
-{ id: 23, title: "Postmodernizm", description: "", x: 200, y: 220 },
-{ id: 24, title: "Manipulacja społeczeństwa", description: "", x: 350, y: 240 },
-{ id: 25, title: "Alienacja jednostki", description: "", x: 500, y: 260 },
-{ id: 26, title: "Dystopizm", description: "", x: 650, y: 280 },
-{ id: 27, title: "Ograniczenie wolności", description: "", x: 800, y: 300 },
-
-{ id: 28, title: "Cierpienie jako motyw", description: "", x: 150, y: 350 },
-{ id: 29, title: "Alegoryzm", description: "", x: 300, y: 370 },
-{ id: 30, title: "Społeczeństwo konsumpcyjne", description: "", x: 450, y: 390 },
-{ id: 31, title: "Początek Kapitalizmu", description: "", x: 600, y: 410 },
-{ id: 32, title: "Zmiana porządku", description: "", x: 750, y: 430 },
-
-{ id: 33, title: "Wolność jednostki", description: "", x: 200, y: 480 },
-{ id: 34, title: "Egalitaryzm", description: "", x: 400, y: 500 },
-{ id: 35, title: "Zagłada społeczeństwa", description: "", x: 600, y: 520 },
+  { id: 1, title: "Krytyka narzuconych ograniczeń", description: "", x: 100, y: 100 },
+  { id: 2, title: "Indywidualizm", description: "", x: 220, y: 130 },
+  { id: 3, title: "Egzystencjalizm", description: "", x: 350, y: 90 },
+  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 1905 – zm. 1980)", image: "https://www.the-tls.com/wp-content/uploads/2019/11/Sartre.jpg", x: 480, y: 140 },
+  
+  { id: 4, title: "Karl Marx", description: "Wymyślił komunizm i cos tam", image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg", x: 700, y: 250 },
+  { id: 5, title: "Marksizm", description: "", x: 820, y: 280 },
+  
+  { id: 12, title: "Rozwój społeczeństwa", description: "", x: 1000, y: 400 },
+  { id: 13, title: "Prawa człowieka", description: "", x: 1120, y: 370 },
+  
+  { id: 7, title: "Nihilizm", description: "", x: 150, y: 300 },
+  { id: 8, title: "Empiryzm", description: "", x: 400, y: 320 },
+  { id: 9, title: "Modernizm", description: "", x: 650, y: 220 },
+  { id: 10, title: "Surrealizm", description: "", x: 900, y: 150 },
+  { id: 11, title: "Kubizm", description: "", x: 1150, y: 270 },
+  
+  { id: 14, title: "Ascetyzm", description: "", x: 50, y: 450 },
+  { id: 15, title: "Poświęcenie dla dobra ogółu", description: "", x: 250, y: 500 },
+  { id: 16, title: "Racjonalizm", description: "", x: 500, y: 480 },
+  { id: 17, title: "Przekraczanie granic", description: "", x: 800, y: 450 },
+  
+  { id: 18, title: "Autentyczność i rozwój", description: "", x: 180, y: 50 },
+  { id: 19, title: "Podważanie prawd i dogmatów", description: "", x: 320, y: 70 },
+  { id: 20, title: "Krytyka religii i wartości", description: "", x: 480, y: 50 },
+  { id: 21, title: "Krytyka kapitalizmu", description: "", x: 630, y: 90 },
+  { id: 22, title: "Zagubienie jednostki", description: "", x: 780, y: 50 },
+  
+  { id: 23, title: "Postmodernizm", description: "", x: 200, y: 600 },
+  { id: 24, title: "Manipulacja społeczeństwa", description: "", x: 400, y: 620 },
+  { id: 25, title: "Alienacja jednostki", description: "", x: 600, y: 580 },
+  { id: 26, title: "Dystopizm", description: "", x: 800, y: 610 },
+  { id: 27, title: "Ograniczenie wolności", description: "", x: 1000, y: 590 },
+  
+  { id: 28, title: "Cierpienie jako motyw", description: "", x: 150, y: 750 },
+  { id: 29, title: "Alegoryzm", description: "", x: 350, y: 720 },
+  { id: 30, title: "Społeczeństwo konsumpcyjne", description: "", x: 550, y: 740 },
+  { id: 31, title: "Początek Kapitalizmu", description: "", x: 750, y: 730 },
+  { id: 32, title: "Zmiana porządku", description: "", x: 950, y: 750 },
+  
+  { id: 33, title: "Wolność jednostki", description: "", x: 200, y: 880 },
+  { id: 34, title: "Egalitaryzm", description: "", x: 500, y: 900 },
+  { id: 35, title: "Zagłada społeczeństwa", description: "", x: 800, y: 880 },
 ];
 const connections = [
   { from: 1, to: 2 },
