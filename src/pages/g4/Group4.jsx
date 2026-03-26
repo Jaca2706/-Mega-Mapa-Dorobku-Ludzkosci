@@ -154,26 +154,39 @@ export default function Group4() {
 
         {/* NODES */}
         {nodesData.map((node) => (
-          <div
-            key={node.id}
-            onClick={() => setActiveNode(node)}
-            style={{
-              position: "absolute",
-              top: node.y,
-              left: node.x,
-              width: "150px",
-              padding: "10px",
-              background: "#f1f5f9",
-              border: "1px solid #ccc",
-              borderRadius: "10px",
-              cursor: "pointer",
-              zIndex: 2,
-              transition: "0.2s",
-            }}
-          >
-            <strong>{node.title}</strong>
-          </div>
-        ))}
+  <div
+    key={node.id}
+    onClick={() => setActiveNode(node)}
+    style={{
+      position: "absolute",
+      top: node.y,
+      left: node.x,
+      width: "150px",
+      padding: "10px",
+      background: "#f1f5f9",
+      border: "1px solid #ccc",
+      borderRadius: "10px",
+      cursor: "pointer",
+      zIndex: 2,
+      transition: "0.2s",
+      textAlign: "center",
+    }}
+  >
+    <strong>{node.title}</strong>
+
+    {node.image && (
+      <img
+        src={node.image}
+        alt={node.title}
+        style={{
+          width: "100%",
+          marginTop: "5px",
+          borderRadius: "6px",
+        }}
+      />
+    )}
+  </div>
+))}
 
 {/* POPUP */}
 {activeNode && (
