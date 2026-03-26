@@ -188,5 +188,26 @@ export const timelineData = [
       endYear: 2500,
       description: "Nieznana przyszłość",
       images: ["https://picsum.photos/300/200?25"]
+    },
+    {
+      id: "26",
+      title: "MEGA TEST",
+      startYear: 2140,
+      description: 'Nowa era energii Nowa era energiiNowa era energiiNowa era energiiNowa era energiiNowa era energiiNowa era energiiNowa era energiiNowa era energii Nowa era energii Nowa era energiiVV VVVNowa era energiiNowa era energiiNowa era energiiNowa era energii V Nowa era energii Nowa era energiiNowa era energii Nowa era energii Nowa era energiiNowa era energiiNowa era energiiNowa era energii',
+      images: ["https://picsum.photos/300/200?24"]
+    },  {
+      id: "27",
+      title: "Dalesdfdsfdsfdska przyszłość",
+      startYear: 2200,
+      endYear: 2300,
+      description: "asdfasfsdfdsfdfdsfdsdfsfdsfds",
+      images: ["https://picsum.photos/300/200?25"]
+    }, {
+      id: "28",
+      title: "Dalesdfdsfdsfdska przyszłość",
+      startYear: 2250,
+      endYear: 2270,
+      description: "asdfasfsdfdsfdfdsfdsdfsfdsfds",
+      images: ["https://picsum.photos/300/200?25"]
     }
   ]
