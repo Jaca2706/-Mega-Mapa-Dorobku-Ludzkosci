@@ -1,95 +1,8 @@
 import { useState, useEffect } from "react";
 
-const historyData = [
-  {
-    id: "powstanie-warszawskie-1944",
-    type: "event",
-    title: { full: "Powstanie Warszawskie", short: "PW 1944" },
-    time: { start: "1944-08-01", end: "1944-10-02", label: "1 VIII – 2 X 1944" },
-    country: "Polska",
-    categories: ["historia", "wojna"],
-    tags: ["II wojna światowa", "Armia Krajowa", "opór", "okupacja"],
-    layers: { geographic: 5, social: 5, economic: 4, mental: 5 },
-    dimensions: {
-      psychologicalTime: "czas traumy i heroizmu",
-      technicalLevel: "wojna przemysłowa XX wieku",
-      globalContext: "II wojna światowa",
-    },
-    relations: [{ targetId: "kamienie-na-szaniec", type: "parallel" }],
-    description: "Zbrojne wystąpienie Armii Krajowej przeciw okupacji niemieckiej w Warszawie.",
-  },
-  {
-    id: "kamienie-na-szaniec",
-    type: "work",
-    title: { full: "Kamienie na szaniec", short: "Kamienie" },
-    time: { start: "1943", end: null, label: "1943" },
-    country: "Polska",
-    categories: ["literatura", "reportaż", "wojna"],
-    tags: ["Szare Szeregi", "harcerstwo", "patriotyzm", "II wojna światowa"],
-    layers: { geographic: 2, social: 5, economic: 1, mental: 5 },
-    dimensions: {
-      psychologicalTime: "dojrzewanie w czasie wojny",
-      technicalLevel: "druk konspiracyjny",
-      globalContext: "II wojna światowa",
-    },
-    relations: [{ targetId: "powstanie-warszawskie-1944", type: "parallel" }],
-    description: "Opowieść o młodych harcerzach Szarych Szeregów walczących w okupowanej Polsce.",
-  },
-  {
-    id: "wielka-emigracja",
-    type: "trend",
-    title: { full: "Wielka Emigracja", short: "Emigracja" },
-    time: { start: "1831", end: "1870", label: "po 1831" },
-    country: "Polska / Francja",
-    categories: ["historia", "kultura", "romantyzm"],
-    tags: ["emigracja polityczna", "powstanie listopadowe", "elity"],
-    layers: { geographic: 4, social: 5, economic: 3, mental: 5 },
-    dimensions: {
-      psychologicalTime: "czas wygnania i mesjanizmu",
-      technicalLevel: "Europa przedindustrialna",
-      globalContext: "Europa XIX wieku",
-    },
-    relations: [{ targetId: "kordian", type: "influenced" }],
-    description: "Emigracja polskich elit politycznych i intelektualnych po upadku powstania listopadowego.",
-  },
-  {
-    id: "kordian",
-    type: "work",
-    title: { full: "Kordian", short: "Kordian" },
-    time: { start: "1834", end: null, label: "1834" },
-    country: "Polska",
-    categories: ["literatura", "dramat", "romantyzm"],
-    tags: ["mesjanizm", "spisek", "indywidualizm"],
-    layers: { geographic: 2, social: 4, economic: 1, mental: 5 },
-    dimensions: {
-      psychologicalTime: "romantyczny bunt jednostki",
-      technicalLevel: "druk XIX wieku",
-      globalContext: "Europa po kongresie wiedeńskim",
-    },
-    relations: [
-      { targetId: "wielka-emigracja", type: "part_of" },
-      { targetId: "wiosna-ludow-1848", type: "parallel" },
-    ],
-    description: "Dramat romantyczny ukazujący konflikt jednostki z historią i odpowiedzialność moralną za naród.",
-  },
-  {
-    id: "wiosna-ludow-1848",
-    type: "event",
-    title: { full: "Wiosna Ludów (1848)", short: "1848" },
-    time: { start: "1848", end: "1849", label: "1848–1849" },
-    country: "Europa",
-    categories: ["historia", "rewolucja"],
-    tags: ["liberalizm", "narodowość", "rewolucje europejskie"],
-    layers: { geographic: 5, social: 5, economic: 4, mental: 4 },
-    dimensions: {
-      psychologicalTime: "czas nadziei i rewolucyjnego entuzjazmu",
-      technicalLevel: "Europa industrialna",
-      globalContext: "rewolucje XIX wieku",
-    },
-    relations: [{ targetId: "kordian", type: "parallel" }],
-    description: "Seria rewolucji w Europie w latach 1848–1849, związanych z walką o prawa narodowe i liberalne reformy.",
-  },
-];
+import { historyData } from './../../baza/baza.js'
+
+
 
 const TYPE_CONFIG = {
   event: {
@@ -147,7 +60,7 @@ function LayerBar({ value, color }) {
           borderRadius: 3,
           background: color,
           width: `${(value / 5) * 100}%`,
-          maxWidth: 80,
+          maxWidth: `${(value / 5) * 80}px`,
           minWidth: 8,
           transition: "width 0.6s cubic-bezier(.4,0,.2,1)",
           opacity: 0.85,
