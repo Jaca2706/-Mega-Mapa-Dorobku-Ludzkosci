@@ -28,6 +28,7 @@ const nodesData = [
     description: "wymyslil komunizm i cos tam",
     x: 200,
     y: 100,
+    image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg"
   }
 ];
 
@@ -160,26 +161,36 @@ export default function Group4() {
           </div>
         ))}
 
-        {/* POPUP */}
-        {activeNode && (
-          <div
-            style={{
-              position: "absolute",
-              bottom: "20px",
-              left: "20px",
-              background: "white",
-              padding: "20px",
-              border: "1px solid #ccc",
-              borderRadius: "10px",
-              width: "300px",
-              zIndex: 3,
-            }}
-          >
-            <h3>{activeNode.title}</h3>
-            <p>{activeNode.description}</p>
-            <button onClick={() => setActiveNode(null)}>Zamknij</button>
-          </div>
-        )}
+{/* POPUP */}
+{activeNode && (
+  <div
+    style={{
+      position: "absolute",
+      bottom: "20px",
+      left: "20px",
+      background: "white",
+      padding: "20px",
+      border: "1px solid #ccc",
+      borderRadius: "10px",
+      width: "300px",
+      zIndex: 3,
+    }}
+  >
+    <h3>{activeNode.title}</h3>
+
+    {activeNode.image && (
+      <img
+        src={activeNode.image}
+        alt={activeNode.title}
+        style={{ width: "100%", borderRadius: "8px", marginBottom: "10px" }}
+      />
+    )}
+
+    <p>{activeNode.description}</p>
+
+    <button onClick={() => setActiveNode(null)}>Zamknij</button>
+  </div>
+)}
       </section>
     </div>
   );
