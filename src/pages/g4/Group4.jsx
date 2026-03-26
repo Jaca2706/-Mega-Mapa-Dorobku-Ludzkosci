@@ -1,49 +1,23 @@
 import React, { useState } from "react";
 
 const nodesData = [
-  {
-    id: 1,
-    title: "Krytyka narzuconych ograniczeń",
-    description: "",
-    x: 450,
-    y: 150,
-  },
-  {
-    id: 2,
-    title: "Indywidualizm",
-    description: "",
-    x: 500,
-    y: 100,
-  },
-  {
-    id: 3,
-    title: "Egzystencjalizm",
-    description: "Systemy uczące się i podejmujące decyzje.",
-    x: 300,
-    y: 70,
-  },
-  {
-    id: 5,
-    title: "Jean-Paul Charles Aymard Sartre",
-    description: "(ur. 21 czerwca 1905 w Paryżu, zm. 15 kwietnia 1980 tamże) – powieściopisarz, dramaturg, eseista i filozof francuski.",
-    x: 200,
-    y: 90,
-  },
-  {
-    id: 4,
-    title: "Karl Marx",
-    description: "wymyslil komunizm i cos tam",
-    x: 200,
-    y: 100,
-    image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg"
-  },
-  {
-    id: 5,
-    title: "Marksizm",
-    description: "",
-    x: 5,
-    y: 7,
-  }
+  { id: 1, title: "Krytyka narzuconych ograniczeń", description: "", x: 100, y: 150 },
+  { id: 2, title: "Indywidualizm", description: "", x: 50, y: 200 },
+  { id: 3, title: "Egzystencjalizm", description: "", x: 100, y: 250 },
+  { id: 4, title: "Karl Marx", description: "Wymyślił komunizm i cos tam", image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg", x: 300, y: 100 },
+  { id: 5, title: "Marksizm", description: "", x: 350, y: 50 },
+  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 21 czerwca 1905 w Paryżu – zm. 15 kwietnia 1980) – powieściopisarz, dramaturg, eseista i filozof francuski.", x: 50, y: 100 },
+  { id: 7, title: "Nihilizm", description: "", x: 150, y: 300 },
+  { id: 8, title: "Empiryzm", description: "", x: 250, y: 350 },
+  { id: 9, title: "Modernizm", description: "", x: 550, y: 150 },
+  { id: 10, title: "Surrealizm", description: "", x: 600, y: 100 },
+  { id: 11, title: "Kubizm", description: "", x: 650, y: 150 },
+  { id: 12, title: "Rozwój społeczeństwa", description: "", x: 450, y: 400 },
+  { id: 13, title: "Prawa człowieka", description: "", x: 400, y: 500 },
+  { id: 14, title: "Ascetyzm", description: "", x: 50, y: 400 },
+  { id: 15, title: "Poświęcenie dla dobra ogółu", description: "", x: 100, y: 450 },
+  { id: 16, title: "Racjonalizm", description: "", x: 200, y: 500 },
+  { id: 17, title: "Przekraczanie granic", description: "", x: 300, y: 550 },
 ];
 
 const connections = [
