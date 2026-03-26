@@ -60,7 +60,7 @@ function LayerBar({ value, color }) {
           borderRadius: 3,
           background: color,
           width: `${(value / 5) * 100}%`,
-          maxWidth: 80,
+          maxWidth: `${(value / 5) * 80}px`,
           minWidth: 8,
           transition: "width 0.6s cubic-bezier(.4,0,.2,1)",
           opacity: 0.85,
