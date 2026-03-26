@@ -15,6 +15,22 @@ export const historyData = [
       tree: { parentId: null },
       description: "Epos o wojnie trojańskiej."
     },
+
+    {
+      id: "odyseja",
+      type: "work",
+      title: { full: "Odyseja (Homer)", short: "Odyseja" },
+      time: { start: "-725", end: null, label: "ok. VIII w. p.n.e." },
+      country: "Grecja",
+      categories: ["literatura", "antyk"],
+      tags: ["epos", "mitologia"],
+      layers: { geographic: 3, social: 4, economic: 1, mental: 5 },
+      dimensions: { psychologicalTime: "świat bohaterów i bogów", technicalLevel: "kultura oralna", globalContext: "starożytność" },
+      media: { image: "", video: "" },
+      relations: [],
+      tree: { parentId: null },
+      description: "Epos opowiadający podróż Odyseusza po wojnie trojańskiej."
+    },
   
     // ----------------- ŚREDNIOWIECZE -----------------
     {
