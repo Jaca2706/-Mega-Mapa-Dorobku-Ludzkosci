@@ -7,13 +7,18 @@ export default function Timeline({ events }) {
   const [scrollX, setScrollX] = useState(0)
   const [activeId, setActiveId] = useState(null)
 
-  const minYear = Math.min(...events.map(e => e.startYear))
-  const maxYear = Math.max(...events.map(e => e.endYear || e.startYear))
+  const validEvents = events.filter(e => e && e.startYear !== undefined)
 
-  const scale = 5
+  const minYear = Math.min(...validEvents.map(e => e.startYear))
+  const maxYear = Math.max(...validEvents.map(e => e.endYear || e.startYear))
 
-  const processed = assignLanes(events)
+  const scale = 6
+
+  const processed = assignLanes(validEvents)
   const { years } = generateYearSteps(minYear, maxYear)
+
+  // 🔥 dynamiczna szerokość
+  const totalWidth = (maxYear - minYear) * scale + 500
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -25,34 +30,20 @@ export default function Timeline({ events }) {
     return () => window.removeEventListener("wheel", handleWheel)
   }, [])
 
-  const scrollToYear = (year) => {
-    const x = (year - minYear) * scale
-    setScrollX(x)
-  }
-
   return (
     <div className="timeline-wrapper">
-
-      <div className="controls">
-        <input
-          type="number"
-          placeholder="rok..."
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              scrollToYear(Number(e.target.value))
-            }
-          }}
-        />
-      </div>
-
       <div className="timeline">
         <div
           className="timeline-inner"
-          style={{ transform: `translateX(${-scrollX}px)` }}
+          style={{
+            width: totalWidth,
+            transform: `translateX(${-scrollX}px)`
+          }}
         >
-
+          {/* GŁÓWNA OŚ */}
           <div className="timeline-line" />
 
+          {/* LATA W OSI */}
           {years.map((y) => (
             <div
               key={y}
@@ -63,6 +54,7 @@ export default function Timeline({ events }) {
             </div>
           ))}
 
+          {/* EVENTY */}
           {processed.map((event) => (
             <TimelineEvent
               key={event.id}
@@ -73,7 +65,6 @@ export default function Timeline({ events }) {
               setActiveId={setActiveId}
             />
           ))}
-
         </div>
       </div>
     </div>
