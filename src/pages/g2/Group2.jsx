@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { historyData } from './../../baza/baza.js'
+import { historyData } from './epochsData.js'
 
 
 
