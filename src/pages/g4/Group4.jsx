@@ -3,24 +3,31 @@ import React, { useState } from "react";
 const nodesData = [
   {
     id: 1,
-    title: "Rewolucja przemysłowa",
-    description: "Okres gwałtownego rozwoju technologii i przemysłu.",
-    x: 100,
-    y: 200,
+    title: "Krytyka narzuconych ograniczeń",
+    description: "",
+    x: 450,
+    y: 150,
   },
   {
     id: 2,
-    title: "Internet",
-    description: "Globalna sieć komunikacyjna zmieniająca świat.",
+    title: "Indywidualizm",
+    description: "",
     x: 500,
     y: 100,
   },
   {
     id: 3,
-    title: "Sztuczna inteligencja",
+    title: "Egzystencjalizm",
     description: "Systemy uczące się i podejmujące decyzje.",
-    x: 800,
-    y: 300,
+    x: 300,
+    y: 70,
+  },
+  {
+    id: 5,
+    title: "Jean-Paul Charles Aymard Sartre",
+    description: "(ur. 21 czerwca 1905 w Paryżu, zm. 15 kwietnia 1980 tamże) – powieściopisarz, dramaturg, eseista i filozof francuski.",
+    x: 200,
+    y: 90,
   },
   {
     id: 4,
@@ -28,6 +35,14 @@ const nodesData = [
     description: "wymyslil komunizm i cos tam",
     x: 200,
     y: 100,
+    image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg"
+  },
+  {
+    id: 5,
+    title: "Marksizm",
+    description: "",
+    x: 5,
+    y: 7,
   }
 ];
 
@@ -139,47 +154,70 @@ export default function Group4() {
 
         {/* NODES */}
         {nodesData.map((node) => (
-          <div
-            key={node.id}
-            onClick={() => setActiveNode(node)}
-            style={{
-              position: "absolute",
-              top: node.y,
-              left: node.x,
-              width: "150px",
-              padding: "10px",
-              background: "#f1f5f9",
-              border: "1px solid #ccc",
-              borderRadius: "10px",
-              cursor: "pointer",
-              zIndex: 2,
-              transition: "0.2s",
-            }}
-          >
-            <strong>{node.title}</strong>
-          </div>
-        ))}
+  <div
+    key={node.id}
+    onClick={() => setActiveNode(node)}
+    style={{
+      position: "absolute",
+      top: node.y,
+      left: node.x,
+      width: "150px",
+      padding: "10px",
+      background: "#f1f5f9",
+      border: "1px solid #ccc",
+      borderRadius: "10px",
+      cursor: "pointer",
+      zIndex: 2,
+      transition: "0.2s",
+      textAlign: "center",
+    }}
+  >
+    <strong>{node.title}</strong>
 
-        {/* POPUP */}
-        {activeNode && (
-          <div
-            style={{
-              position: "absolute",
-              bottom: "20px",
-              left: "20px",
-              background: "white",
-              padding: "20px",
-              border: "1px solid #ccc",
-              borderRadius: "10px",
-              width: "300px",
-              zIndex: 3,
-            }}
-          >
-            <h3>{activeNode.title}</h3>
-            <p>{activeNode.description}</p>
-            <button onClick={() => setActiveNode(null)}>Zamknij</button>
-          </div>
-        )}
+    {node.image && (
+      <img
+        src={node.image}
+        alt={node.title}
+        style={{
+          width: "100%",
+          marginTop: "5px",
+          borderRadius: "6px",
+        }}
+      />
+    )}
+  </div>
+))}
+
+{/* POPUP */}
+{activeNode && (
+  <div
+    style={{
+      position: "absolute",
+      bottom: "20px",
+      left: "20px",
+      background: "white",
+      padding: "20px",
+      border: "1px solid #ccc",
+      borderRadius: "10px",
+      width: "300px",
+      zIndex: 3,
+    }}
+  >
+    <h3>{activeNode.title}</h3>
+
+    {activeNode.image && (
+      <img
+        src={activeNode.image}
+        alt={activeNode.title}
+        style={{ width: "100%", borderRadius: "8px", marginBottom: "10px" }}
+      />
+    )}
+
+    <p>{activeNode.description}</p>
+
+    <button onClick={() => setActiveNode(null)}>Zamknij</button>
+  </div>
+)}
       </section>
     </div>
   );
