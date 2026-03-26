@@ -1,9 +1,11 @@
 .timeline-container-vertical {
   padding: 30px 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 700px;
+  max-width: 100%;
   margin: 0 auto;
   background: #e8f4e8;
+  overflow-x: auto;
+  position: relative;
 }
 
 h1 {
@@ -11,69 +13,246 @@ h1 {
   margin-bottom: 40px;
   font-size: 2.5rem;
   font-weight: 700;
-}
-
-.timeline-vertical {
-  border-left: 6px solid #333;
-  position: relative;
-  padding-left: 40px;
-}
-
-/* Blok epoki pionowo */
-.period-block-vertical {
-  position: relative;
-  margin-bottom: 50px; /* duży odstęp między epokami */
-  padding-left: 20px;
-  border-left: 6px solid transparent;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  user-select: none;
-  max-width: 600px;
-}
-
-.period-block-vertical:hover {
-  background-color: #d3e9d3;
-}
-
-.period-block-vertical.active {
-  background-color: #a8d5a8;
-  font-weight: 700;
-}
-
-/* Nazwa epoki */
-.period-label-vertical {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 10px;
   color: #333;
 }
 
-/* Szczegóły epoki pod nazwą */
-.period-details-vertical {
-  list-style-type: disc;
-  padding-left: 20px;
-  margin: 0;
-  line-height: 1.5;
-  font-size: 1rem;
-  color: #222;
+/* Pozioma oś czasu */
+.timeline-horizontal {
+  position: relative;
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow-x: auto;
 }
 
-/* Usuwamy domyślne pseudo-elementy - będziemy ustawiać kolory w JS */
-.period-block-vertical::before {
-  content: "";
-  position: absolute;
-  left: -36px;
-  top: 10px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 4px solid #333;
-  background-clip: padding-box;
-  box-sizing: content-box;
+/* Główna linia osi */
+.timeline-track {
+  position: relative;
+  height: 4px;
+  background: #333;
+  margin: 0 20px;
+  border-radius: 2px;
+}
+
+/* Kontener na wszystkie punkty */
+.timeline-points-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: -12px;
+  min-width: 1000px;
+}
+
+/* Pojedynczy punkt/epoka */
+.timeline-period-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 80px;
 }
 
-/* Po kliknięciu - kropka z czarną otoczką */
-.period-block-vertical.active::before {
-  border-color: gray;
+/* Kropka */
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--dot-color);
+  border: 3px solid #333;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.timeline-period-item:hover .timeline-dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+}
+
+/* Aktywna kropka - czarna otoczka */
+.timeline-period-item.active .timeline-dot {
+  border-color: black;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+}
+
+/* Etykieta pod kropką */
+.timeline-label {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  transition: all 0.3s ease;
+  max-width: 100px;
+}
+
+.timeline-dates {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #666;
+  margin-top: 4px;
+}
+
+.timeline-period-item.active .timeline-label {
+  color: var(--dot-color);
+  transform: translateY(-2px);
+}
+
+/* Panel z informacjami - większy i lepiej widoczny */
+.timeline-info-panel {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 25px;
+  margin-top: 50px;
+  animation: slideUp 0.4s ease-out;
+  border-left: 5px solid var(--panel-color);
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timeline-info-panel h3 {
+  color: #333;
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.timeline-info-panel .period-range {
+  color: var(--panel-color);
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+
+.timeline-info-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.timeline-info-panel li {
+  padding: 12px 15px;
+  margin: 8px 0;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid var(--panel-color);
+  transition: all 0.2s ease;
+  animation: fadeInItem 0.3s ease-out;
+}
+
+@keyframes fadeInItem {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.timeline-info-panel li:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+.timeline-info-panel strong {
+  color: var(--panel-color);
+}
+
+/* Przycisk zamykania */
+.close-info-panel {
+  float: right;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  transition: all 0.2s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-info-panel:hover {
+  color: #333;
+  background: #f0f0f0;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .timeline-points-container {
+    min-width: 800px;
+  }
+  
+  .timeline-period-item {
+    min-width: 60px;
+  }
+  
+  .timeline-label {
+    font-size: 0.7rem;
+    max-width: 70px;
+  }
+  
+  .timeline-dates {
+    font-size: 1rem;
+  }
+  
+  .timeline-dot {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .timeline-info-panel {
+    padding: 15px;
+  }
+  
+  .timeline-info-panel h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Dostosowanie przewijania */
+.timeline-horizontal::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timeline-horizontal::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.timeline-horizontal::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 4px;
+}
+
+.timeline-horizontal::-webkit-scrollbar-thumb:hover {
+  background: #666;
 }
