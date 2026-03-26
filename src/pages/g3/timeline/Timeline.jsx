@@ -32,13 +32,13 @@ export default function Timeline({ events }) {
 
   // 🔥 SCROLL DO ROKU
   const scrollToYear = (year) => {
-    const x = (year - minYear) * scale
+    const x = (year - minYear + 30) * scale
     setScrollX(x - window.innerWidth / 2)
   }
 
   // 🔥 SCROLL DO EVENTU
   const scrollToEvent = (event) => {
-    const x = (event.startYear - minYear) * scale
+    const x = (event.startYear - minYear + 30 ) * scale
     setScrollX(x - window.innerWidth / 2)
   }
 
