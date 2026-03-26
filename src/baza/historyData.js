@@ -1,5 +1,13 @@
 export const historyData = [
     // ----------------- ANTYK -----------------
+    { 
+      id: "antyk", 
+      nazwa: "Antyk", 
+      kolor: "#6B7280", 
+      start: -800, 
+      koniec: 500,
+      description: "Charakterystyka epoki: W centrum zainteresowania stał człowiek, jego rozum oraz harmonia świata. Dużą rolę odgrywała mitologia – bogowie ingerowali w życie ludzi, a ich postępowanie przypominało ludzkie zachowania, z tą różnicą, że byli nieśmiertelni. To w antyku powstały podstawy filozofii i teatru. Najważniejsze dzieła i autorzy: Homer – Iliada (opowieść o wojnie trojańskiej i ideale bohaterskiego wojownika) oraz Odyseja (podróż Odyseusza do ojczyzny). Sofokles – Król Edyp (tragiczna historia człowieka, który nie może uciec przed przeznaczeniem)." 
+    },
     {
       id: "iliada",
       type: "work",
