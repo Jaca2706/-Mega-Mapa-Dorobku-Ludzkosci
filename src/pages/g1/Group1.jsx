@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./group1.css";
 import { historyData } from "../../baza/historyData";
 
-
 const okresy = [
   { id: "antyk", nazwa: "Antyk", kolor: "#6B7280", start: -800, koniec: 500 },
   { id: "sredniowiecze", nazwa: "Średniowiecze", kolor: "#8B6D5C", start: 500, koniec: 1500 },
@@ -17,16 +16,11 @@ const okresy = [
   { id: "wspolczesnosc", nazwa: "Współczesność", kolor: "#16A34A", start: 1945, koniec: 2026 }
 ];
 
-
 const getEventsForPeriod = (start, end) => {
   return historyData.filter(item => {
     if (!item.time || !item.time.start) return false;
-
     const year = parseInt(item.time.start);
-
     if (isNaN(year)) return false;
-
-    // 🔥 KLUCZOWE: < zamiast <=
     return year >= start && year < end;
   });
 };
@@ -34,49 +28,80 @@ const getEventsForPeriod = (start, end) => {
 function Group1() {
   const [wybrany, setWybrany] = useState(null);
 
+  const formatYear = (year) => {
+    if (year < 0) return `${Math.abs(year)} p.n.e.`;
+    return `${year} n.e.`;
+  };
+
   return (
     <div className="timeline-container-vertical">
-      <h1>Oś czasu epok literackich</h1>
+      <h1>📚 Oś czasu epok literackich</h1>
 
-      <div className="timeline-vertical">
-        {okresy.map((okres) => {
-          const wydarzenia = getEventsForPeriod(okres.start, okres.koniec);
-
-          return (
-            <div
-              key={okres.id}
-              className={`period-block-vertical ${
-                wybrany === okres.id ? "active" : ""
-              }`}
-              style={{ borderLeftColor: okres.kolor }}
-              onClick={() =>
-                setWybrany(wybrany === okres.id ? null : okres.id)
-              }
-            >
+      <div className="timeline-horizontal">
+        <div className="timeline-track"></div>
+        
+        <div className="timeline-points-container">
+          {okresy.map((okres) => {
+            const isActive = wybrany === okres.id;
+            
+            return (
               <div
-                className="period-label-vertical"
-                style={{ color: okres.kolor }}
+                key={okres.id}
+                className={`timeline-period-item ${isActive ? "active" : ""}`}
+                onClick={() => setWybrany(isActive ? null : okres.id)}
               >
-                {okres.nazwa}
+                <div 
+                  className="timeline-dot"
+                  style={{ 
+                    backgroundColor: okres.kolor,
+                    "--dot-color": okres.kolor 
+                  }}
+                ></div>
+                <div className="timeline-label">
+                  <div>{okres.nazwa}</div>
+                  <div className="timeline-dates">
+                    {formatYear(okres.start)}<br />{formatYear(okres.koniec)}
+                  </div>
+                </div>
               </div>
+            );
+          })}
+        </div>
 
-              {wybrany === okres.id && (
-                <ul className="period-details-vertical">
-                  {wydarzenia.length > 0 ? (
-                    wydarzenia.map((item) => (
-                      <li key={item.id}>
-                        <strong>{item.title.short}</strong> –{" "}
-                        {item.time.label}
-                      </li>
-                    ))
-                  ) : (
-                    <li>Brak danych</li>
-                  )}
-                </ul>
-              )}
+        {/* Panel informacyjny */}
+        {wybrany && (() => {
+          const selectedPeriod = okresy.find(o => o.id === wybrany);
+          const wydarzenia = getEventsForPeriod(selectedPeriod.start, selectedPeriod.koniec);
+          
+          return (
+            <div 
+              className="timeline-info-panel"
+              style={{ "--panel-color": selectedPeriod.kolor }}
+            >
+              <button 
+                className="close-info-panel"
+                onClick={() => setWybrany(null)}
+              >
+                ✕
+              </button>
+              <h3>{selectedPeriod.nazwa}</h3>
+              <div className="period-range">
+                📅 {formatYear(selectedPeriod.start)} – {formatYear(selectedPeriod.koniec)}
+              </div>
+              <ul>
+                {wydarzenia.length > 0 ? (
+                  wydarzenia.map((item) => (
+                    <li key={item.id}>
+                      <strong>{item.title.short}</strong> – {item.time.label}
+                    </li>
+                  ))
+                ) : (
+                  <li>📖 Brak wydarzeń dla tej epoki</li>
+                )}
+              </ul>
             </div>
           );
-        })}
+        })()}
       </div>
     </div>
   );
