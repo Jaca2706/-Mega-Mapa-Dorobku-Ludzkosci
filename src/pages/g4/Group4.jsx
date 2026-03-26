@@ -3,24 +3,31 @@ import React, { useState } from "react";
 const nodesData = [
   {
     id: 1,
-    title: "Rewolucja przemysłowa",
-    description: "Okres gwałtownego rozwoju technologii i przemysłu.",
-    x: 100,
-    y: 200,
+    title: "Krytyka narzuconych ograniczeń",
+    description: "",
+    x: 450,
+    y: 150,
   },
   {
     id: 2,
-    title: "Internet",
-    description: "Globalna sieć komunikacyjna zmieniająca świat.",
+    title: "Indywidualizm",
+    description: "",
     x: 500,
     y: 100,
   },
   {
     id: 3,
-    title: "Sztuczna inteligencja",
+    title: "Egzystencjalizm",
     description: "Systemy uczące się i podejmujące decyzje.",
-    x: 800,
-    y: 300,
+    x: 300,
+    y: 70,
+  },
+  {
+    id: 5,
+    title: "Jean-Paul Charles Aymard Sartre",
+    description: "(ur. 21 czerwca 1905 w Paryżu, zm. 15 kwietnia 1980 tamże) – powieściopisarz, dramaturg, eseista i filozof francuski.",
+    x: 200,
+    y: 90,
   },
   {
     id: 4,
@@ -29,6 +36,13 @@ const nodesData = [
     x: 200,
     y: 100,
     image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg"
+  },
+  {
+    id: 5,
+    title: "Marksizm",
+    description: "",
+    x: 5,
+    y: 7,
   }
 ];
 
