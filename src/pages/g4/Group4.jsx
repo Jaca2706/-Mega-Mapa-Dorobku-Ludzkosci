@@ -6,7 +6,7 @@ const nodesData = [
   { id: 3, title: "Egzystencjalizm", description: "", x: 250, y: 350 },
   { id: 4, title: "Karl Marx", description: "Wymyślił komunizm i cos tam", image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg", x: 400, y: 100 },
   { id: 5, title: "Marksizm", description: "", x: 550, y: 50 },
-  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 1905 – zm. 1980)", x: 100, y: 100 },
+  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 1905 – zm. 1980)", image: "https://www.the-tls.com/wp-content/uploads/2019/11/Sartre.jpg", x: 100, y: 50 },
   { id: 7, title: "Nihilizm", description: "", x: 300, y: 450 },
   { id: 8, title: "Empiryzm", description: "", x: 500, y: 500 },
   { id: 9, title: "Modernizm", description: "", x: 750, y: 200 },
@@ -108,18 +108,42 @@ export default function Group4() {
         ))}
 
         {/* POPUP */}
+        
         {activeNode && (
-          <div style={{ position: "absolute", bottom: "20px", left: "20px", background: "white", padding: "20px", border: "2px solid #0ea5e9", borderRadius: "10px", width: "300px", zIndex: 10 }}>
-            <h3>{activeNode.title}</h3>
-            {activeNode.image && (
-              <img src={activeNode.image} alt={activeNode.title} style={{ width: "100%", height: "120px", objectFit: "cover", borderRadius: "8px", marginBottom: "10px" }} />
-            )}
-            <p>{activeNode.description}</p>
-            <button onClick={() => setActiveNode(null)} style={{ marginTop: "10px", padding: "5px 10px", background: "#0ea5e9", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}>
-              Zamknij
-            </button>
-          </div>
-        )}
+  <div
+    style={{
+      position: "absolute",
+      bottom: "20px",
+      left: "20px",
+      background: "white",
+      padding: "20px",
+      border: "1px solid #ccc",
+      borderRadius: "10px",
+      width: "300px",
+      zIndex: 3,
+    }}
+  >
+    <h3>{activeNode.title}</h3>
+
+    {activeNode.image && (
+      <img
+        src={activeNode.image}
+        alt={activeNode.title}
+        style={{
+          width: "100%",
+          height: "200px",
+          objectFit: "cover",
+          borderRadius: "8px",
+          marginBottom: "10px",
+        }}
+      />
+    )}
+
+    <p>{activeNode.description}</p>
+    <button onClick={() => setActiveNode(null)}>Zamknij</button>
+  </div>
+)}
+        
       </section>
     </div>
   );
