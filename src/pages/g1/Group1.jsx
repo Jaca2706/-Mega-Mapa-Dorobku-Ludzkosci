@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./group1.css";
 
 const okresy = [
@@ -101,6 +101,29 @@ const okresy = [
 function Group1() {
   const [wybrany, setWybrany] = useState(null);
 
+  useEffect(() => {
+    // Ustawiamy kolory kropek po załadowaniu komponentu
+    const blocks = document.querySelectorAll('.period-block-vertical');
+    blocks.forEach(block => {
+      const borderColor = block.style.borderLeftColor;
+      if (borderColor) {
+        const pseudo = window.getComputedStyle(block, '::before');
+        // Dodajemy styl do head dla każdej kropki
+        const styleId = `style-${borderColor.replace(/[^a-zA-Z0-9]/g, '')}`;
+        if (!document.getElementById(styleId)) {
+          const style = document.createElement('style');
+          style.id = styleId;
+          style.textContent = `
+            .period-block-vertical[style*="border-left-color: ${borderColor}"]::before {
+              background-color: ${borderColor};
+            }
+          `;
+          document.head.appendChild(style);
+        }
+      }
+    });
+  }, []);
+
   return (
     <div className="timeline-container-vertical">
       <h1>Oś czasu epok literackich</h1>
@@ -113,7 +136,12 @@ function Group1() {
             onClick={() => setWybrany(wybrany === okres.id ? null : okres.id)}
             title={okres.nazwa}
           >
-            <div className="period-label-vertical">{okres.nazwa}</div>
+            <div 
+              className="period-label-vertical"
+              style={{ color: okres.kolor }}
+            >
+              {okres.nazwa}
+            </div>
             {wybrany === okres.id && (
               <ul className="period-details-vertical">
                 {okres.szczegoly.map((pkt, i) => (
