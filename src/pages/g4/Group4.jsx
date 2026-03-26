@@ -1,23 +1,33 @@
 import React, { useState } from "react";
 
 const nodesData = [
-  { id: 1, title: "Krytyka narzuconych ograniczeń", description: "", x: 100, y: 150 },
-  { id: 2, title: "Indywidualizm", description: "", x: 50, y: 200 },
-  { id: 3, title: "Egzystencjalizm", description: "", x: 100, y: 250 },
-  { id: 4, title: "Karl Marx", description: "Wymyślił komunizm i cos tam", image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg", x: 300, y: 100 },
-  { id: 5, title: "Marksizm", description: "", x: 350, y: 50 },
-  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 21 czerwca 1905 w Paryżu – zm. 15 kwietnia 1980) – powieściopisarz, dramaturg, eseista i filozof francuski.", x: 50, y: 100 },
-  { id: 7, title: "Nihilizm", description: "", x: 150, y: 300 },
-  { id: 8, title: "Empiryzm", description: "", x: 250, y: 350 },
-  { id: 9, title: "Modernizm", description: "", x: 550, y: 150 },
-  { id: 10, title: "Surrealizm", description: "", x: 600, y: 100 },
-  { id: 11, title: "Kubizm", description: "", x: 650, y: 150 },
-  { id: 12, title: "Rozwój społeczeństwa", description: "", x: 450, y: 400 },
-  { id: 13, title: "Prawa człowieka", description: "", x: 400, y: 500 },
-  { id: 14, title: "Ascetyzm", description: "", x: 50, y: 400 },
-  { id: 15, title: "Poświęcenie dla dobra ogółu", description: "", x: 100, y: 450 },
-  { id: 16, title: "Racjonalizm", description: "", x: 200, y: 500 },
-  { id: 17, title: "Przekraczanie granic", description: "", x: 300, y: 550 },
+  {
+    id: 1,
+    title: "Rewolucja przemysłowa",
+    content: "Masowy rozwój fabryk, maszyn parowych i transportu.",
+    description: "Okres gwałtownego rozwoju technologii i przemysłu.",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Steam_engine_Boulton_Watt.jpg",
+    x: 100,
+    y: 200,
+  },
+  {
+    id: 2,
+    title: "Internet",
+    content: "Globalna sieć komunikacyjna zmieniająca świat.",
+    description: "Internet połączył ludzi i umożliwił wymianę wiedzy na masową skalę.",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Internet_map_1024.jpg",
+    x: 500,
+    y: 100,
+  },
+  {
+    id: 3,
+    title: "Sztuczna inteligencja",
+    content: "Systemy uczące się i podejmujące decyzje.",
+    description: "AI wpływa na medycynę, przemysł i codzienne życie.",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Artificial_intelligence_logo.png",
+    x: 800,
+    y: 300,
+  },
 ];
 
 const connections = [
@@ -27,6 +37,7 @@ const connections = [
 
 export default function Group4() {
   const [activeNode, setActiveNode] = useState(null);
+  const [clickedNodeId, setClickedNodeId] = useState(null);
 
   const getNodeById = (id) => nodesData.find((n) => n.id === id);
 
@@ -66,9 +77,9 @@ export default function Group4() {
         <div style={{ flex: 1 }}>
           <h2>Jak działa mapa?</h2>
           <ul>
-            <li>Kliknij blok, aby zobaczyć szczegóły</li>
-            <li>Linie pokazują powiązania</li>
-            <li>Możesz analizować zależności</li>
+            <li>Kliknij blok, aby zobaczyć efekt wizualny</li>
+            <li>Najedź na blok, aby zobaczyć przycisk "Czytaj więcej"</li>
+            <li>Przycisk otwiera szczegółowy opis zagadnienia</li>
           </ul>
         </div>
       </section>
@@ -126,72 +137,129 @@ export default function Group4() {
           <strong>Dorobek ludzkości</strong>
         </div>
 
-        {/* NODES */}
+        {/* ================= NODES ================= */}
         {nodesData.map((node) => (
-  <div
-    key={node.id}
-    onClick={() => setActiveNode(node)}
-    style={{
-      position: "absolute",
-      top: node.y,
-      left: node.x,
-      width: "150px",
-      padding: "10px",
-      background: "#f1f5f9",
-      border: "1px solid #ccc",
-      borderRadius: "10px",
-      cursor: "pointer",
-      zIndex: 2,
-      transition: "0.2s",
-      textAlign: "center",
-    }}
-  >
-    <strong>{node.title}</strong>
+          <div key={node.id} style={{ position: "absolute", top: node.y, left: node.x }}>
+            {/* BLOK */}
+            <div
+              onClick={() => {
+                setClickedNodeId(node.id);
+                setTimeout(() => setClickedNodeId(null), 200);
+              }}
+              style={{
+                width: "150px",
+                padding: "10px",
+                background: "#f1f5f9",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+                cursor: "pointer",
+                transition: "0.2s",
+                transform: clickedNodeId === node.id ? "scale(0.95)" : "scale(1)",
+                filter: clickedNodeId === node.id ? "brightness(0.8)" : "brightness(1)",
+                textAlign: "center",
+              }}
+            >
+              {node.image && (
+                <img
+                  src={node.image}
+                  alt={node.title}
+                  style={{
+                    width: "100%",
+                    height: "80px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    marginBottom: "5px",
+                  }}
+                />
+              )}
+              <strong>{node.title}</strong>
+              {node.content && (
+                <p style={{ fontSize: "0.85rem", marginTop: "5px" }}>{node.content}</p>
+              )}
+            </div>
 
-    {node.image && (
-      <img
-        src={node.image}
-        alt={node.title}
-        style={{
-          width: "100%",
-          marginTop: "5px",
-          borderRadius: "6px",
-        }}
-      />
-    )}
-  </div>
-))}
+            {/* PRZYCISK "CZYTAJ WIĘCEJ" */}
+            <div style={{ textAlign: "center", marginTop: "5px" }}>
+              <button
+                onClick={() => setActiveNode(node)}
+                style={{
+                  display: "none",
+                  padding: "5px 10px",
+                  fontSize: "0.8rem",
+                  border: "none",
+                  backgroundColor: "#0ea5e9",
+                  color: "white",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  transition: "0.2s",
+                }}
+                className="readMoreButton"
+              >
+                Czytaj więcej
+              </button>
+            </div>
+          </div>
+        ))}
 
-{/* POPUP */}
-{activeNode && (
-  <div
-    style={{
-      position: "absolute",
-      bottom: "20px",
-      left: "20px",
-      background: "white",
-      padding: "20px",
-      border: "1px solid #ccc",
-      borderRadius: "10px",
-      width: "300px",
-      zIndex: 3,
-    }}
-  >
-    <h3>{activeNode.title}</h3>
+        {/* ================= POPUP ================= */}
+        {activeNode && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              left: "20px",
+              background: "white",
+              padding: "20px",
+              border: "2px solid #0ea5e9",
+              borderRadius: "10px",
+              width: "300px",
+              zIndex: 10,
+            }}
+          >
+            <h3>{activeNode.title}</h3>
+            {activeNode.image && (
+              <img
+                src={activeNode.image}
+                alt={activeNode.title}
+                style={{
+                  width: "100%",
+                  height: "120px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  marginBottom: "10px",
+                }}
+              />
+            )}
+            <p>{activeNode.description}</p>
+            <button
+              onClick={() => setActiveNode(null)}
+              style={{
+                marginTop: "10px",
+                padding: "5px 10px",
+                background: "#0ea5e9",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Zamknij
+            </button>
+          </div>
+        )}
 
-    {activeNode.image && (
-      <img
-        src={activeNode.image}
-        alt={activeNode.title}
-        style={{ width: "100%", borderRadius: "8px", marginBottom: "10px" }}
-      />
-    )}
+        {/* ================= INLINE CSS HOVER BUTTON ================= */}
+        <style>
+          {`
+          div:hover .readMoreButton {
+            display: inline-block;
+          }
 
-    <p>{activeNode.description}</p>
-
-    <button onClick={() => setActiveNode(null)}>Zamknij</button>
-  </div>
-)}
+          div:hover .readMoreButton:hover {
+            background-color: #0284c7;
+          }
+          `}
+        </style>
       </section>
     </div>
   );
