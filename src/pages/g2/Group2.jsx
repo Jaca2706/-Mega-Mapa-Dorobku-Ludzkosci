@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { historyData } from './../../baza/baza.js'
 
@@ -123,6 +123,19 @@ function RelationChip({ rel, allData }) {
 
 function TimelineCard({ item, index, isOpen, onToggle, allData }) {
   const cfg = TYPE_CONFIG[item.type] || TYPE_CONFIG.event;
+  const [hovered, setHovered] = useState(false);
+
+  const buttonBg = isOpen
+    ? cfg.bg
+    : hovered
+    ? "rgba(255,255,255,0.07)"
+    : "rgba(255,255,255,0.03)";
+
+  const buttonBorder = isOpen
+    ? cfg.border
+    : hovered
+    ? "rgba(255,255,255,0.18)"
+    : "rgba(255,255,255,0.08)";
 
   return (
     <div
@@ -193,19 +206,24 @@ function TimelineCard({ item, index, isOpen, onToggle, allData }) {
       >
         <button
           onClick={onToggle}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           style={{
             width: "100%",
-            background: isOpen ? cfg.bg : "rgba(255,255,255,0.03)",
-            border: `1px solid ${isOpen ? cfg.border : "rgba(255,255,255,0.08)"}`,
+            background: buttonBg,
+            border: `1px solid ${buttonBorder}`,
             borderRadius: 12,
             padding: "14px 18px",
             cursor: "pointer",
             textAlign: "left",
-            transition: "all 0.25s ease",
+            transition: "background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-start",
             gap: 12,
+            boxShadow: hovered && !isOpen
+              ? "0 4px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)"
+              : "none",
           }}
         >
           <div style={{ flex: 1 }}>
@@ -232,9 +250,10 @@ function TimelineCard({ item, index, isOpen, onToggle, allData }) {
                 fontFamily: "'Georgia', 'Times New Roman', serif",
                 fontSize: 17,
                 fontWeight: 700,
-                color: "#e8e0d0",
+                color: hovered && !isOpen ? "#fff" : "#e8e0d0",
                 lineHeight: 1.3,
                 marginBottom: 4,
+                transition: "color 0.2s ease",
               }}
             >
               {item.title.full}
@@ -512,7 +531,7 @@ export default function Group2() {
           />
         </div>
 
-        {/* Filter / legend */}
+        {/* Legend */}
         <Legend />
 
         {/* Timeline */}
