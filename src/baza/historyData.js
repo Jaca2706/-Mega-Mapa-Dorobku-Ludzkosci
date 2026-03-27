@@ -5,10 +5,10 @@ export const historyData = [
     id: "antyk",
     type: "epoch",
     title: "Antyk",
-    description: [
+    description: [ "W centrum zainteresowania stał człowiek, jego rozum i harmonia świata. Mitologia ukazywała bogów ingerujących w życie ludzi. Powstały podstawy filozofii i teatru.",
       "Człowiek i harmonia świata.",
       "Mitologia i początki filozofii.",
-      "Rozwój teatru."
+      
     ],
     ciekawostki: [
       "🏟️ Igrzyska olimpijskie 776 p.n.e.",
