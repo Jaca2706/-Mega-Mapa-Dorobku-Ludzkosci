@@ -82,13 +82,10 @@ npm run dev
 ---
 
 Zapoznałem się z regulaminem i go akceptuję:
-<<<<<<< HEAD
 -Michalski M.
 -Michalski J
-=======
 -Michalski M.(wice admin)
 -Jacek P. (admin)
->>>>>>> 5806a76cf0ee84bdc79c9533549a1198db296e07
 -
 -
 -
