@@ -6,7 +6,20 @@ export const historyData = [
       kolor: "#6B7280", 
       start: -800, 
       koniec: 500,
-      description: "Charakterystyka epoki: W centrum zainteresowania stał człowiek, jego rozum oraz harmonia świata. Dużą rolę odgrywała mitologia – bogowie ingerowali w życie ludzi, a ich postępowanie przypominało ludzkie zachowania, z tą różnicą, że byli nieśmiertelni. To w antyku powstały podstawy filozofii i teatru. Najważniejsze dzieła i autorzy: Homer – Iliada (opowieść o wojnie trojańskiej i ideale bohaterskiego wojownika) oraz Odyseja (podróż Odyseusza do ojczyzny). Sofokles – Król Edyp (tragiczna historia człowieka, który nie może uciec przed przeznaczeniem)." 
+      description: ["W centrum zainteresowania stał człowiek, jego rozum i harmonia świata. Mitologia ukazywała bogów ingerujących w życie ludzi. Powstały podstawy filozofii i teatru.",
+        
+        "Dzieła i autorzy:",
+        "Homer – Iliada (wojna trojańska, ideał bohatera)",
+        "Homer – Odyseja (podróż Odyseusza do ojczyzny)",
+        "Sofokles – Król Edyp (człowiek wobec przeznaczenia)",
+        "Sofokles – Antygona (konflikt prawa boskiego i ludzkiego)",
+
+        "Ciekawostki:",
+        "🏟️ Pierwsze igrzyska olimpijskie (776 p.n.e.) |", 
+        "🎭 Narodziny teatru – aktorzy w maskach |", 
+        "⚔️ Wojna trojańska inspiracją dzieł |", "🧠 Filozofowie (Sokrates) o sensie życia |",
+        "⚡ Grecy wierzyli, że bogowie żyją jak ludzie – tylko są nieśmiertelni"
+      ]
     },
     {
       id: "iliada",
