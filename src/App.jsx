@@ -1,4 +1,5 @@
 import { Routes, Route, Link } from "react-router-dom";
+import AdWindow from "./ads/adWindow"
 import Group1 from "./pages/g1/Group1";
 import Group2 from "./pages/g2/Group2";
 import Group3 from "./pages/g3/Group3";
@@ -16,6 +17,8 @@ function App() {
         <Link to="/group2" className="groupBtn">Grupa 2</Link>
         <Link to="/group3" className="groupBtn">Grupa 3</Link>
         <Link to="/group4" className="groupBtn">Grupa 4</Link>
+        <br></br>
+        
       </div>
 
       <div className="content">
