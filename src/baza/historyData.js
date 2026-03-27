@@ -14,9 +14,7 @@ export const historyData = [
     type: "epoch",
     title: "Średniowiecze",
     description: [
-      "Teocentryzm – Bóg w centrum.",
-      "Wzorce: rycerz, święty.",
-      "Literatura religijna."
+      "Teocentryzm – Bóg w centrum życia. Literatura religijna i dydaktyczna. Życie ziemskie przygotowaniem do wieczności. Hasło: memento mori."
     ]
   },
 
@@ -25,9 +23,7 @@ export const historyData = [
     type: "epoch",
     title: "Renesans",
     description: [
-      "Humanizm – powrót do antyku.",
-      "Człowiek w centrum.",
-      "Rozwój nauki i sztuki."
+      "„Odrodzenie” antyku. Człowiek w centrum uwagi, wiara w możliwość kształtowania własnego losu. Rozwój nauki, sztuki i literatury."
     ]
   },
 
@@ -36,9 +32,7 @@ export const historyData = [
     type: "epoch",
     title: "Barok",
     description: [
-      "Przepych i kontrasty.",
-      "Temat przemijania.",
-      "Religijność i emocje."
+      "Epoka kontrastów – życie i śmierć, ciało i dusza. Motyw vanitas (marność). Poczucie przemijania i kruchości życia."
     ]
   },
 
@@ -47,9 +41,7 @@ export const historyData = [
     type: "epoch",
     title: "Oświecenie",
     description: [
-      "Rozum i nauka.",
-      "Krytyka religii.",
-      "Literatura dydaktyczna."
+      "Rozum i nauka w centrum. Literatura miała uczyć, poprawiać społeczeństwo i krytykować wady. Motto: „myśl samodzielnie”."
     ]
   },
 
@@ -58,9 +50,7 @@ export const historyData = [
     type: "epoch",
     title: "Romantyzm",
     description: [
-      "Uczucia ponad rozum.",
-      "Indywidualizm.",
-      "Walka o wolność."
+      "Uczucia, wyobraźnia, wolność. Polska pod zaborami – literatura patriotyczna. Poeta jako przywódca narodu. Motywy nadprzyrodzone i nieszczęśliwa miłość."
     ]
   },
 
@@ -69,9 +59,7 @@ export const historyData = [
     type: "epoch",
     title: "Pozytywizm",
     description: [
-      "Praca u podstaw.",
-      "Realizm.",
-      "Rozwój społeczeństwa."
+      "Praca, nauka, rozwój społeczeństwa. Literatura realistyczna. Hasła: praca u podstaw, praca organiczna. Zamiast walki – rozwój."
     ]
   },
 
@@ -80,9 +68,34 @@ export const historyData = [
     type: "epoch",
     title: "Młoda Polska",
     description: [
-      "Symbolizm i sztuka.",
-      "Dekadentyzm.",
-      "Nastroje pesymistyczne."
+      "Emocje, sztuka, pesymizm. Dekadentyzm – poczucie kryzysu i bezsensu życia. Hasło: sztuka dla sztuki."
+    ]
+  },
+
+  {
+    id: "dwudziestolecie-miedzywojenne",
+    type: "epoch",
+    title: "Dwudziestolecie międzywojenne",
+    description: [
+      " Odzyskana niepodległość, wolność twórcza, eksperymenty literackie. Różnorodność stylów i form."
+    ]
+  },
+
+  {
+    id: "wojna-i-okupacja",
+    type: "epoch",
+    title: "Wojna i okupacja",
+    description: [
+      "Literatura jako świadectwo tragedii wojny, cierpienia i walki o przetrwanie. Pamięć i prawda o okupacji."
+    ]
+  },
+
+  {
+    id: "wspolczesnosc",
+    type: "epoch",
+    title: "Współczesność",
+    description: [
+      "Brak jednego stylu – ogromna różnorodność. Autorzy poruszają tematy historyczne, egzystencjalne i współczesne. Pełna wolność twórcza."
     ]
   },
 
