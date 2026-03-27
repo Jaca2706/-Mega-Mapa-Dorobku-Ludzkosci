@@ -42,21 +42,25 @@ const nodesData = [
   { id: 32, title: "Zmiana porządku", description: "", x: 950, y: 750 },
   
   { id: 33, title: "Wolność jednostki", description: "", x: 200, y: 880 },
-  { id: 34, title: "Egalitaryzm", description: "", x: 500, y: 900 },
-  { id: 35, title: "Friedrich Nietzsche", description: "", x: 800, y: 880 },
-  { id: 36, title: "Olga Tokarczuk", description: "", x: 800, y: 880 },
-  { id: 37, title: "George Orwell", description: "", x: 800, y: 880 },
-  { id: 38, title: "Franz Kafka", description: "", x: 800, y: 880 },
-  { id: 39, title: "Frida Kahlo", description: "", x: 800, y: 880 },
-  { id: 40, title: "Pablo Picasso", description: "", x: 800, y: 880 },
-  { id: 41, title: "Blaise Pascal", description: "", x: 800, y: 880 },
-  { id: 42, title: "Eratostenes", description: "", x: 800, y: 880 },
-  { id: 43, title: "Hung", description: "", x: 800, y: 880 },
-  { id: 44, title: "Swiety Franciszek", description: "", x: 800, y: 880 },
-  { id: 45, title: "Mojzesz", description: "", x: 800, y: 880 },
-  { id: 45, title: "Rewolucja Przemyslowa", description: "", x: 800, y: 880 },
-  { id: 45, title: "Wielka Rewolucja Francuska", description: "", x: 800, y: 880 },
-  { id: 45, title: "Rewolucja Bolszewicka", description: "", x: 800, y: 880 },
+{ id: 34, title: "Egalitaryzm", description: "", x: 500, y: 900 },
+
+{ id: 35, title: "Friedrich Nietzsche", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAe06OjnwlCAdBis_9_ynLiC860sllWujRZQ&s", x: 750, y: 800 },
+{ id: 36, title: "Olga Tokarczuk", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyDeK9biAkjibgoZkGmui3AOQ8EakyOl9UhA&s", x: 900, y: 850 },
+{ id: 37, title: "George Orwell", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0KbzEkG1RX78bA7-dWvLgv6gBUA7Y9jMiGQ&s", x: 1050, y: 900 },
+{ id: 38, title: "Franz Kafka", description: "", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Franz_Kafka%2C_1923.jpg/250px-Franz_Kafka%2C_1923.jpg", x: 1200, y: 850 },
+
+{ id: 39, title: "Frida Kahlo", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGUyC6y-CHwlDB0fo4ujaJg_LBUQoeu52axQ&s", x: 750, y: 950 },
+{ id: 40, title: "Pablo Picasso", description: "", image: "https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg", x: 900, y: 1000 },
+{ id: 41, title: "Blaise Pascal", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegWU-pKua9LXrEYwCdN1pxNmop9ODlbDn8A&s", x: 1050, y: 950 },
+{ id: 42, title: "Eratostenes", description: "", x: 1200, y: 1000 },
+
+{ id: 43, title: "Hung", description: "", x: 750, y: 1100 },
+{ id: 44, title: "Swiety Franciszek", description: "", x: 900, y: 1150 },
+{ id: 45, title: "Mojzesz", description: "", x: 1050, y: 1100 },
+
+{ id: 46, title: "Rewolucja Przemyslowa", description: "", x: 750, y: 1200 },
+{ id: 47, title: "Wielka Rewolucja Francuska", description: "", x: 950, y: 1250 },
+{ id: 48, title: "Rewolucja Bolszewicka", description: "", x: 1150, y: 1200 }
 ];
 const connections = [
   { from: 1, to: 2 },
