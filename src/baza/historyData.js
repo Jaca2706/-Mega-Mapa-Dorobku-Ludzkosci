@@ -1,5 +1,26 @@
 export const historyData = [
     // ----------------- ANTYK -----------------
+    { 
+      id: "antyk", 
+      nazwa: "Antyk", 
+      kolor: "#6B7280", 
+      start: -800, 
+      koniec: 500,
+      description: ["W centrum zainteresowania stał człowiek, jego rozum i harmonia świata. Mitologia ukazywała bogów ingerujących w życie ludzi. Powstały podstawy filozofii i teatru.",
+        
+        "Dzieła i autorzy:",
+        "Homer – Iliada (wojna trojańska, ideał bohatera)",
+        "Homer – Odyseja (podróż Odyseusza do ojczyzny)",
+        "Sofokles – Król Edyp (człowiek wobec przeznaczenia)",
+        "Sofokles – Antygona (konflikt prawa boskiego i ludzkiego)",
+
+        "Ciekawostki:",
+        "🏟️ Pierwsze igrzyska olimpijskie (776 p.n.e.) |", 
+        "🎭 Narodziny teatru – aktorzy w maskach |", 
+        "⚔️ Wojna trojańska inspiracją dzieł |", "🧠 Filozofowie (Sokrates) o sensie życia |",
+        "⚡ Grecy wierzyli, że bogowie żyją jak ludzie – tylko są nieśmiertelni"
+      ]
+    },
     {
       id: "iliada",
       type: "work",

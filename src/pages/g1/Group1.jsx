@@ -78,56 +78,69 @@ const getEventDetails = (id) => {
         </div>
 
         {/* Panel informacyjny */}
-        {wybrany && (() => {
-          const selectedPeriod = okresy.find(o => o.id === wybrany);
-          const wydarzenia = getEventsForPeriod(selectedPeriod.start, selectedPeriod.koniec);
-          
-          return (
-            <div 
-              className="timeline-info-panel"
-              style={{ "--panel-color": selectedPeriod.kolor }}
-            >
-              <button 
-                className="close-info-panel"
-                onClick={() => setWybrany(null)}
-              >
-                ✕
-              </button>
-              <h3>{selectedPeriod.nazwa}</h3>
-              <div className="period-range">
-                📅 {formatYear(selectedPeriod.start)} – {formatYear(selectedPeriod.koniec)}
-              </div>
-              <ul className="timeline-events-list">
-  {wydarzenia.length > 0 ? (
-    wydarzenia.map((item) => (
-      <li 
-        key={item.id} 
-        className={`timeline-event-item ${wybranyEvent === item.id ? "active-event" : ""}`}
-        onClick={(e) => { e.stopPropagation(); handleEventClick(item); }}
-      >
-        <strong>{item.title.short}</strong> – {item.time.label}
+{wybrany && (() => {
+  const selectedPeriod = okresy.find(o => o.id === wybrany);
+  const wydarzenia = getEventsForPeriod(selectedPeriod.start, selectedPeriod.koniec);
 
-        {wybranyEvent === item.id && (
-          <div className="timeline-event-details">
-            <p>{item.description}</p>
-            {item.media.image && <img src={item.media.image} alt={item.title.short} />}
-            {item.media.video && <video src={item.media.video} controls />}
-            <div className="event-meta">
-              <div>🌍 {item.country}</div>
-              <div>📂 Kategorie: {item.categories.join(", ")}</div>
-              <div>🏷️ Tag: {item.tags.join(", ")}</div>
-            </div>
+  // Pobieramy description z historyData, jeśli istnieje
+  const periodData = historyData.find(item => item.id === selectedPeriod.id);
+  const opisEpoki = periodData?.description;
+
+  return (
+    <div 
+      className="timeline-info-panel"
+      style={{ "--panel-color": selectedPeriod.kolor }}
+    >
+      <button 
+        className="close-info-panel"
+        onClick={() => setWybrany(null)}
+      >
+        ✕
+      </button>
+      <h3>{selectedPeriod.nazwa}</h3>
+      <div className="period-range">
+        📅 {formatYear(selectedPeriod.start)} – {formatYear(selectedPeriod.koniec)}
+      </div>
+
+      {/* Wyświetlenie długiego opisu epoki */}
+      {opisEpoki && (
+        <div className="epoka-description">
+          {Array.isArray(opisEpoki)
+            ? opisEpoki.map((linia, index) => (
+              <p key={index}>{linia}</p>
+          ))
+              : <p>{opisEpoki}</p>
+          }
           </div>
+          )}
+
+      <ul className="timeline-events-list">
+        {wydarzenia.length > 0 ? (
+          wydarzenia.map((item) => (
+            <li key={item.id} className={`timeline-event-item ${wybranyEvent === item.id ? "active-event" : ""}`} onClick={(e) => { e.stopPropagation(); handleEventClick(item); }}>
+              <strong>{item.title.short}</strong> – {item.time.label}
+
+              {wybranyEvent === item.id && (
+                <div className="timeline-event-details">
+                  <p>{item.description}</p>
+                  {item.media.image && <img src={item.media.image} alt={item.title.short} />}
+                  {item.media.video && <video src={item.media.video} controls />}
+                  <div className="event-meta">
+                    <div>🌍 {item.country}</div>
+                    <div>📂 Kategorie: {item.categories.join(", ")}</div>
+                    <div>🏷️ Tag: {item.tags.join(", ")}</div>
+                  </div>
+                </div>
+              )}
+            </li>
+          ))
+        ) : (
+          <li>📖 Brak wydarzeń dla tej epoki</li>
         )}
-      </li>
-    ))
-  ) : (
-    <li>📖 Brak wydarzeń dla tej epoki</li>
-  )}
-</ul>
-            </div>
-          );
-        })()}
+      </ul>
+    </div>
+  );
+})()}
       </div>
     </div>
   );
