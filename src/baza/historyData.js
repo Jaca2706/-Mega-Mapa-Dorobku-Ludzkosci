@@ -5,15 +5,7 @@ export const historyData = [
     id: "antyk",
     type: "epoch",
     title: "Antyk",
-    description: [ "W centrum zainteresowania stał człowiek, jego rozum i harmonia świata. Mitologia ukazywała bogów ingerujących w życie ludzi. Powstały podstawy filozofii i teatru.",
-      "Człowiek i harmonia świata.",
-      "Mitologia i początki filozofii.",
-      
-    ],
-    ciekawostki: [
-      "🏟️ Igrzyska olimpijskie 776 p.n.e.",
-      "🎭 Narodziny teatru",
-      "⚡ Bogowie jak ludzie"
+    description: [ "W centrum zainteresowania stał człowiek, jego rozum i harmonia świata. Mitologia ukazywała bogów ingerujących w życie ludzi. Powstały podstawy filozofii i teatru."
     ]
   },
 
@@ -113,6 +105,19 @@ export const historyData = [
     year: -725,
     description: "Podróż Odyseusza."
   },
+
+  {
+    id: "ciekawostki",
+    type: "work",
+    title: "Ciekawostki",
+    epoch: "antyk",
+    description: [
+      "🏟️ Igrzyska olimpijskie 776 p.n.e.",
+      "🎭 Narodziny teatru",
+      "⚡ Bogowie jak ludzie"
+    ]
+  },
+
 
   {
     id: "bogurodzica",
