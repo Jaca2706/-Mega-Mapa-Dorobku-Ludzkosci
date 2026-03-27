@@ -52,11 +52,11 @@ const nodesData = [
 { id: 39, title: "Frida Kahlo", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGUyC6y-CHwlDB0fo4ujaJg_LBUQoeu52axQ&s", x: 750, y: 950 },
 { id: 40, title: "Pablo Picasso", description: "", image: "https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg", x: 900, y: 1000 },
 { id: 41, title: "Blaise Pascal", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegWU-pKua9LXrEYwCdN1pxNmop9ODlbDn8A&s", x: 1050, y: 950 },
-{ id: 42, title: "Eratostenes", description: "", x: 1200, y: 1000 },
+{ id: 42, title: "Eratostenes", description: "", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3qpd9wtte3h08MNY0k1aoupLkIGBhk35RTQ&s", x: 1200, y: 1000 },
 
 { id: 43, title: "Hung", description: "", x: 750, y: 1100 },
-{ id: 44, title: "Swiety Franciszek", description: "", x: 900, y: 1150 },
-{ id: 45, title: "Mojzesz", description: "", x: 1050, y: 1100 },
+{ id: 44, title: "Swiety Franciszek", description: "",image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT14DtJeTC9dz04ISMiWS38JWnq0wpRml3w-Q&s", x: 900, y: 1150 },
+{ id: 45, title: "Mojzesz", description: "", image: "https://static.deon.pl/storage/image/core_files/2011/10/12/bb8b802fa39aecb43e0a9c28e46e23ab/jpg/deon/articles-thumb-xlarge-breakpoint-default/katecheta-jak-mojzesz.jpg", x: 1050, y: 1100 },
 
 { id: 46, title: "Rewolucja Przemyslowa", description: "", x: 750, y: 1200 },
 { id: 47, title: "Wielka Rewolucja Francuska", description: "", x: 950, y: 1250 },
