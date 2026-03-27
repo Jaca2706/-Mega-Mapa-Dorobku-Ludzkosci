@@ -109,38 +109,13 @@ h1 {
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 25px;
   margin-top: 50px;
   animation: slideUp 0.4s ease-out;
   border-left: 5px solid var(--panel-color);
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
-  overflow: hidden;
-}
-
-.panel-content {
-  padding: 25px;
-  max-height: 600px;
-  overflow-y: auto;
-}
-
-/* Pasek przewijania dla panel-content */
-.panel-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.panel-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-.panel-content::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-.panel-content::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
 
 @keyframes slideUp {
@@ -152,40 +127,6 @@ h1 {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Nagłówek panelu z obrazkiem */
-.panel-header {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.panel-text {
-  flex: 2;
-  min-width: 200px;
-}
-
-.panel-image-container {
-  flex: 1;
-  min-width: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.epoch-image {
-  width: 100%;
-  max-width: 200px;
-  height: auto;
-  border-radius: 15px;
-  box-shadow: none;
-  transition: box-shadow 0.3s ease;
-}
-
-.epoch-image:hover {
-  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.3);
 }
 
 .timeline-info-panel h3 {
@@ -204,23 +145,12 @@ h1 {
   border-bottom: 2px solid #eee;
 }
 
-/* Opis epoki */
-.epoka-description-container {
-  margin-bottom: 20px;
-}
-
-.epoka-description {
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 12px;
-  font-size: 0.95rem;
-}
-
-/* Lista wydarzeń */
-.timeline-events-list {
+.timeline-info-panel ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .timeline-info-panel li {
@@ -268,9 +198,6 @@ h1 {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  margin: 10px 15px 0 0;
-  position: relative;
-  z-index: 10;
 }
 
 .close-info-panel:hover {
@@ -302,24 +229,12 @@ h1 {
     height: 16px;
   }
   
-  .panel-content {
+  .timeline-info-panel {
     padding: 15px;
   }
   
   .timeline-info-panel h3 {
     font-size: 1.3rem;
-  }
-  
-  .panel-header {
-    flex-direction: column;
-  }
-  
-  .panel-image-container {
-    justify-content: flex-start;
-  }
-  
-  .epoch-image {
-    max-width: 150px;
   }
 }
 
