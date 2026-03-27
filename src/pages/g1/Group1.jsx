@@ -104,10 +104,15 @@ const getEventDetails = (id) => {
 
       {/* Wyświetlenie długiego opisu epoki */}
       {opisEpoki && (
-        <p className="epoka-description">
-          {opisEpoki}
-        </p>
-      )}
+        <div className="epoka-description">
+          {Array.isArray(opisEpoki)
+            ? opisEpoki.map((linia, index) => (
+              <p key={index}>{linia}</p>
+          ))
+              : <p>{opisEpoki}</p>
+          }
+          </div>
+          )}
 
       <ul className="timeline-events-list">
         {wydarzenia.length > 0 ? (

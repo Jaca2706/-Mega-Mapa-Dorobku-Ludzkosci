@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { historyData } from "./epochsData.js";
 import Legend from "./components/Legend.jsx";
 import TimelineCard from "./components/TimelineCard.jsx";
@@ -12,8 +12,18 @@ function normalize(str) {
 
 function matchesQuery(item, query) {
   if (!query.trim()) return true;
-  const q = normalize(query.trim());
 
+  const trimmed = query.trim();
+
+  // Tag-only mode: query starts with #
+  if (trimmed.startsWith("#")) {
+    const tagQuery = normalize(trimmed.slice(1));
+    if (!tagQuery) return true;
+    return (item.tags ?? []).some((tag) => normalize(tag).includes(tagQuery));
+  }
+
+  // Normal mode: search everything
+  const q = normalize(trimmed);
   const searchableText = [
     item.title.full,
     item.title.short,
@@ -36,6 +46,7 @@ function matchesQuery(item, query) {
 export default function Group2() {
   const [openId, setOpenId] = useState(null);
   const [query, setQuery] = useState("");
+  const cardRefs = useRef({});
 
   const sorted = [...historyData].sort(
     (a, b) => parseInt(a.time.start) - parseInt(b.time.start)
@@ -44,6 +55,33 @@ export default function Group2() {
   const filtered = sorted.filter((item) => matchesQuery(item, query));
 
   const toggle = (id) => setOpenId((prev) => (prev === id ? null : id));
+
+  const scrollToItem = (targetId) => {
+    // Check if target is currently visible
+    const isVisible = filtered.some((item) => item.id === targetId);
+
+    if (!isVisible) {
+      // Reset search so the item becomes visible
+      setQuery("");
+    }
+
+    // Open the card and scroll to it
+    setOpenId(targetId);
+
+    // Use setTimeout to wait for DOM update after potential query reset
+    setTimeout(() => {
+      const el = cardRefs.current[targetId];
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 50);
+  };
+
+  const setTagQuery = (tag) => {
+    setQuery(`#${tag}`);
+    setOpenId(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div
@@ -62,21 +100,14 @@ export default function Group2() {
         }
         .search-input::placeholder { color: #555; }
         .search-input:focus { outline: none; border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.07); }
+        .tag-chip:hover { background: rgba(255,255,255,0.12) !important; color: #ccc !important; cursor: pointer; }
       `}</style>
 
       <div style={{ maxWidth: 680, margin: "0 auto" }}>
 
         {/* Header */}
         <div style={{ marginBottom: 40 }}>
-          <div
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "#666",
-              marginBottom: 10,
-            }}
-          >
+          <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#666", marginBottom: 10 }}>
             Model infografiki · Grupa 2
           </div>
           <h1
@@ -92,40 +123,17 @@ export default function Group2() {
           >
             Oś Przejść
           </h1>
-          <p
-            style={{
-              fontSize: 14,
-              color: "#666",
-              margin: 0,
-              fontStyle: "italic",
-              letterSpacing: "0.02em",
-            }}
-          >
+          <p style={{ fontSize: 14, color: "#666", margin: 0, fontStyle: "italic", letterSpacing: "0.02em" }}>
             Zmiany postrzegania świata — chronologiczna oś wydarzeń, dzieł i nurtów
           </p>
-          <div
-            style={{
-              marginTop: 16,
-              height: 1,
-              background: "linear-gradient(to right, rgba(255,255,255,0.12), transparent)",
-            }}
-          />
+          <div style={{ marginTop: 16, height: 1, background: "linear-gradient(to right, rgba(255,255,255,0.12), transparent)" }} />
         </div>
 
         {/* Search */}
         <div style={{ marginBottom: 24, position: "relative" }}>
           <svg
-            width="15"
-            height="15"
-            viewBox="0 0 15 15"
-            fill="none"
-            style={{
-              position: "absolute",
-              left: 14,
-              top: "50%",
-              transform: "translateY(-50%)",
-              pointerEvents: "none",
-            }}
+            width="15" height="15" viewBox="0 0 15 15" fill="none"
+            style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
           >
             <circle cx="6.5" cy="6.5" r="5" stroke="#555" strokeWidth="1.4" />
             <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#555" strokeWidth="1.4" strokeLinecap="round" />
@@ -133,40 +141,28 @@ export default function Group2() {
           <input
             className="search-input"
             type="text"
-            placeholder="Szukaj po nazwie, roku, kraju, tagu…"
+            placeholder="Szukaj po nazwie, roku… lub #tag"
             value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setOpenId(null);
-            }}
+            onChange={(e) => { setQuery(e.target.value); setOpenId(null); }}
             style={{
               width: "100%",
               boxSizing: "border-box",
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              background: query.startsWith("#") ? "rgba(142,68,173,0.08)" : "rgba(255,255,255,0.04)",
+              border: `1px solid ${query.startsWith("#") ? "rgba(142,68,173,0.4)" : "rgba(255,255,255,0.1)"}`,
               borderRadius: 10,
               padding: "11px 40px 11px 40px",
               fontSize: 14,
-              color: "#e8e0d0",
-              transition: "border-color 0.2s ease, background 0.2s ease",
+              color: query.startsWith("#") ? "#b08fd4" : "#e8e0d0",
+              transition: "border-color 0.2s ease, background 0.2s ease, color 0.2s ease",
             }}
           />
           {query && (
             <button
               onClick={() => { setQuery(""); setOpenId(null); }}
               style={{
-                position: "absolute",
-                right: 12,
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: "#555",
-                fontSize: 18,
-                lineHeight: 1,
-                padding: "0 2px",
-                transition: "color 0.15s ease",
+                position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
+                background: "none", border: "none", cursor: "pointer", color: "#555",
+                fontSize: 18, lineHeight: 1, padding: "0 2px", transition: "color 0.15s ease",
               }}
               onMouseEnter={(e) => (e.target.style.color = "#aaa")}
               onMouseLeave={(e) => (e.target.style.color = "#555")}
@@ -178,19 +174,12 @@ export default function Group2() {
 
         <Legend />
 
-        {/* Results count when filtering */}
+        {/* Results count */}
         {query.trim() && (
-          <div
-            style={{
-              fontSize: 12,
-              color: "#555",
-              marginBottom: 16,
-              marginTop: -16,
-            }}
-          >
+          <div style={{ fontSize: 12, color: "#555", marginBottom: 16, marginTop: -16 }}>
             {filtered.length === 0
               ? "Brak wyników"
-              : `${filtered.length} z ${historyData.length} elementów`}
+              : `${filtered.length} z ${historyData.length} elementów${query.startsWith("#") ? ` · tag: ${query}` : ""}`}
           </div>
         )}
 
@@ -198,25 +187,20 @@ export default function Group2() {
         <div style={{ position: "relative" }}>
           {filtered.length > 0 ? (
             filtered.map((item, i) => (
-              <TimelineCard
-                key={item.id}
-                item={item}
-                index={i}
-                isOpen={openId === item.id}
-                onToggle={() => toggle(item.id)}
-                allData={historyData}
-              />
+              <div key={item.id} ref={(el) => (cardRefs.current[item.id] = el)}>
+                <TimelineCard
+                  item={item}
+                  index={i}
+                  isOpen={openId === item.id}
+                  onToggle={() => toggle(item.id)}
+                  allData={historyData}
+                  onRelationClick={scrollToItem}
+                  onTagClick={setTagQuery}
+                />
+              </div>
             ))
           ) : (
-            <div
-              style={{
-                textAlign: "center",
-                padding: "48px 0",
-                color: "#444",
-                fontSize: 14,
-                fontStyle: "italic",
-              }}
-            >
+            <div style={{ textAlign: "center", padding: "48px 0", color: "#444", fontSize: 14, fontStyle: "italic" }}>
               Nie znaleziono żadnych elementów dla „{query}"
             </div>
           )}
