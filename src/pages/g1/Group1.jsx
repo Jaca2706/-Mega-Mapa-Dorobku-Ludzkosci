@@ -16,26 +16,20 @@ const okresy = [
   { id: "wspolczesnosc", nazwa: "Współczesność", kolor: "#16A34A", start: 1945, koniec: 2026 }
 ];
 
-const getEventsForPeriod = (start, end) => {
-  return historyData.filter(item => {
-    if (!item.time || !item.time.start) return false;
-    const year = parseInt(item.time.start);
-    if (isNaN(year)) return false;
-    return year >= start && year < end;
-  });
+// 🔥 NOWY sposób — po epoch
+const getEventsForPeriod = (epokaId) => {
+  return historyData.filter(
+    (item) => item.type === "work" && item.epoch === epokaId
+  );
 };
 
 function Group1() {
   const [wybrany, setWybrany] = useState(null);
-  const [wybranyEvent, setWybranyEvent] = useState(null); // śledzi kliknięte wydarzenie
+  const [wybranyEvent, setWybranyEvent] = useState(null);
 
-const handleEventClick = (event) => {
-  setWybranyEvent(event.id === wybranyEvent ? null : event.id);
-};
-
-const getEventDetails = (id) => {
-  return historyData.find(item => item.id === id);
-};
+  const handleEventClick = (event) => {
+    setWybranyEvent(event.id === wybranyEvent ? null : event.id);
+  };
 
   const formatYear = (year) => {
     if (year < 0) return `${Math.abs(year)} p.n.e.`;
@@ -48,28 +42,31 @@ const getEventDetails = (id) => {
 
       <div className="timeline-horizontal">
         <div className="timeline-track"></div>
-        
+
+        {/* KROPKI */}
         <div className="timeline-points-container">
           {okresy.map((okres) => {
             const isActive = wybrany === okres.id;
-            
+
             return (
               <div
                 key={okres.id}
                 className={`timeline-period-item ${isActive ? "active" : ""}`}
-                onClick={() => setWybrany(isActive ? null : okres.id)}
+                onClick={() => {
+                  setWybrany(isActive ? null : okres.id);
+                  setWybranyEvent(null);
+                }}
               >
-                <div 
+                <div
                   className="timeline-dot"
-                  style={{ 
-                    backgroundColor: okres.kolor,
-                    "--dot-color": okres.kolor 
-                  }}
+                  style={{ backgroundColor: okres.kolor }}
                 ></div>
+
                 <div className="timeline-label">
                   <div>{okres.nazwa}</div>
                   <div className="timeline-dates">
-                    {formatYear(okres.start)}<br />{formatYear(okres.koniec)}
+                    {formatYear(okres.start)}<br />
+                    {formatYear(okres.koniec)}
                   </div>
                 </div>
               </div>
@@ -77,70 +74,90 @@ const getEventDetails = (id) => {
           })}
         </div>
 
-        {/* Panel informacyjny */}
-{wybrany && (() => {
-  const selectedPeriod = okresy.find(o => o.id === wybrany);
-  const wydarzenia = getEventsForPeriod(selectedPeriod.start, selectedPeriod.koniec);
+        {/* PANEL */}
+        {wybrany && (() => {
+          const selectedPeriod = okresy.find(o => o.id === wybrany);
+          const wydarzenia = getEventsForPeriod(selectedPeriod.id);
 
-  // Pobieramy description z historyData, jeśli istnieje
-  const periodData = historyData.find(item => item.id === selectedPeriod.id);
-  const opisEpoki = periodData?.description;
+          // 🔥 pobieranie epoki z bazy
+          const periodData = historyData.find(
+            item => item.type === "epoch" && item.id === selectedPeriod.id
+          );
 
-  return (
-    <div 
-      className="timeline-info-panel"
-      style={{ "--panel-color": selectedPeriod.kolor }}
-    >
-      <button 
-        className="close-info-panel"
-        onClick={() => setWybrany(null)}
-      >
-        ✕
-      </button>
-      <h3>{selectedPeriod.nazwa}</h3>
-      <div className="period-range">
-        📅 {formatYear(selectedPeriod.start)} – {formatYear(selectedPeriod.koniec)}
-      </div>
+          const opisEpoki = periodData?.description;
+          const ciekawostki = periodData?.ciekawostki;
 
-      {/* Wyświetlenie długiego opisu epoki */}
-      {opisEpoki && (
-        <div className="epoka-description">
-          {Array.isArray(opisEpoki)
-            ? opisEpoki.map((linia, index) => (
-              <p key={index}>{linia}</p>
-          ))
-              : <p>{opisEpoki}</p>
-          }
-          </div>
-          )}
+          return (
+            <div
+              className="timeline-info-panel"
+              style={{ "--panel-color": selectedPeriod.kolor }}
+            >
+              <button
+                className="close-info-panel"
+                onClick={() => setWybrany(null)}
+              >
+                ✕
+              </button>
 
-      <ul className="timeline-events-list">
-        {wydarzenia.length > 0 ? (
-          wydarzenia.map((item) => (
-            <li key={item.id} className={`timeline-event-item ${wybranyEvent === item.id ? "active-event" : ""}`} onClick={(e) => { e.stopPropagation(); handleEventClick(item); }}>
-              <strong>{item.title.short}</strong> – {item.time.label}
+              <h3>{selectedPeriod.nazwa}</h3>
 
-              {wybranyEvent === item.id && (
-                <div className="timeline-event-details">
-                  <p>{item.description}</p>
-                  {item.media.image && <img src={item.media.image} alt={item.title.short} />}
-                  {item.media.video && <video src={item.media.video} controls />}
-                  <div className="event-meta">
-                    <div>🌍 {item.country}</div>
-                    <div>📂 Kategorie: {item.categories.join(", ")}</div>
-                    <div>🏷️ Tag: {item.tags.join(", ")}</div>
-                  </div>
+              <div className="period-range">
+                📅 {formatYear(selectedPeriod.start)} –{" "}
+                {formatYear(selectedPeriod.koniec)}
+              </div>
+
+              {/* OPIS */}
+              {opisEpoki && (
+                <div className="epoka-description">
+                  {Array.isArray(opisEpoki)
+                    ? opisEpoki.map((linia, index) => (
+                        <p key={index}>{linia}</p>
+                      ))
+                    : <p>{opisEpoki}</p>
+                  }
                 </div>
               )}
-            </li>
-          ))
-        ) : (
-          <li>📖 Brak wydarzeń dla tej epoki</li>
-        )}
-      </ul>
-    </div>
-  );
-})()}
+
+              {/* CIEKAWOSTKI */}
+              {ciekawostki && (
+                <div className="epoka-ciekawostki">
+                  <h4>💡 Ciekawostki:</h4>
+                  {ciekawostki.map((ciek, i) => (
+                    <p key={i}>{ciek}</p>
+                  ))}
+                </div>
+              )}
+
+              {/* WYDARZENIA */}
+              <ul className="timeline-events-list">
+                {wydarzenia.length > 0 ? (
+                  wydarzenia.map((item) => (
+                    <li
+                      key={item.id}
+                      className={`timeline-event-item ${
+                        wybranyEvent === item.id ? "active-event" : ""
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEventClick(item);
+                      }}
+                    >
+                      <strong>{item.title}</strong> – {item.year}
+
+                      {wybranyEvent === item.id && (
+                        <div className="timeline-event-details">
+                          <p>{item.description}</p>
+                        </div>
+                      )}
+                    </li>
+                  ))
+                ) : (
+                  <li>📖 Brak wydarzeń dla tej epoki</li>
+                )}
+              </ul>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
