@@ -7,16 +7,21 @@ export default function Timeline({ events }) {
   const [scrollX, setScrollX] = useState(0)
   const [activeId, setActiveId] = useState(null)
 
-  const minYear = Math.min(...events.map(e => e.startYear))
-  const maxYear = Math.max(...events.map(e => e.endYear || e.startYear))
+  const validEvents = events.filter(e => e && e.startYear !== undefined)
 
-  const scale = 5
+  const minYear = Math.min(...validEvents.map(e => e.startYear))
+  const maxYear = Math.max(...validEvents.map(e => e.endYear || e.startYear))
 
-  const processed = assignLanes(events)
+  const scale = 6
+  const processed = assignLanes(validEvents)
   const { years } = generateYearSteps(minYear, maxYear)
 
+  const totalWidth = (maxYear - minYear) * scale + 800
+
+  // 🔥 SCROLL KOŁKIEM
   useEffect(() => {
     const handleWheel = (e) => {
+      if (e.target.closest(".event-content")) return // 🔥 blokada
       e.preventDefault()
       setScrollX(prev => prev + e.deltaY)
     }
@@ -25,14 +30,22 @@ export default function Timeline({ events }) {
     return () => window.removeEventListener("wheel", handleWheel)
   }, [])
 
+  // 🔥 SCROLL DO ROKU
   const scrollToYear = (year) => {
-    const x = (year - minYear) * scale
-    setScrollX(x)
+    const x = (year - minYear + 30) * scale
+    setScrollX(x - window.innerWidth / 2)
+  }
+
+  // 🔥 SCROLL DO EVENTU
+  const scrollToEvent = (event) => {
+    const x = (event.startYear - minYear + 30 ) * scale
+    setScrollX(x - window.innerWidth / 2)
   }
 
   return (
     <div className="timeline-wrapper">
 
+      {/* 🔍 SEARCH */}
       <div className="controls">
         <input
           type="number"
@@ -48,7 +61,10 @@ export default function Timeline({ events }) {
       <div className="timeline">
         <div
           className="timeline-inner"
-          style={{ transform: `translateX(${-scrollX}px)` }}
+          style={{
+            width: totalWidth,
+            transform: `translateX(${-scrollX}px)`
+          }}
         >
 
           <div className="timeline-line" />
@@ -70,7 +86,11 @@ export default function Timeline({ events }) {
               scale={scale}
               minYear={minYear}
               activeId={activeId}
-              setActiveId={setActiveId}
+              setActiveId={(id) => {
+                const ev = processed.find(e => e.id === id)
+                if (ev) scrollToEvent(ev)
+                setActiveId(id)
+              }}
             />
           ))}
 
