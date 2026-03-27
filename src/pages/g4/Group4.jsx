@@ -59,12 +59,32 @@ const nodesData = [
   { id: 45, title: "Rewolucja Bolszewicka", description: "", x: 800, y: 880 },
 ];
 const connections = [
-  { from: 1, to: 2 },
-  { from: 2, to: 3 },
-  { from: 3, to: 6 },
-  { from: 4, to: 5 },
+  { from: 6, to: 1 },
+  { from: 6, to: 2 },
+  { from: 6, to: 3 },
   { from: 4, to: 1 },
-  { from: 12, to: 13 },
+  { from: 4, to: 5 },
+  { from: 4, to: 21 },
+  { from: 4, to: 22 },
+  { from: 4, to: 22 },
+  { from: 4, to: 20 },
+  { from: 35, to: 20 },
+  { from: 35, to: 3 },
+  { from: 35, to: 7 },
+  { from: 35, to: 19 },
+  { from: 36, to: 21 },
+  { from: 36, to: 22 },
+  { from: 36, to: 23 },
+  { from: 36, to: 26 },
+  { from: 37, to: 21 },
+  { from: 37, to: 23 },
+  { from: 37, to: 24 },
+  { from: 38, to: 25 },
+  { from: 38, to: 27 },
+  { from: 38, to: 9 },
+  { from: 39, to: 28 },
+  { from: 39, to: 29 },
+  
 ];
 
 export default function Group4() {
