@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const nodesData = [
-  { id: 1, title: "Krytyka narzuconych ograniczeń", description: "", x: 100, y: 100 },
-  { id: 2, title: "Indywidualizm", description: "", x: 220, y: 130 },
-  { id: 3, title: "Egzystencjalizm", description: "", x: 350, y: 90 },
-  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 1905 – zm. 1980)", image: "https://www.the-tls.com/wp-content/uploads/2019/11/Sartre.jpg", x: 480, y: 140 },
+  { id: 1, title: "Krytyka narzuconych ograniczeń", description: "", x: 160, y: 130 },
+  { id: 2, title: "Indywidualizm", description: "", x: 200, y: 310 },
+  { id: 3, title: "Egzystencjalizm", description: "", x: 1, y: 400 },
+  { id: 6, title: "Jean-Paul Sartre", description: "(ur. 1905 – zm. 1980)", image: "https://www.the-tls.com/wp-content/uploads/2019/11/Sartre.jpg", x: 20, y: 210 },
   
   { id: 4, title: "Karl Marx", description: "Wymyślił komunizm i cos tam", image: "https://cdn.britannica.com/23/129223-050-9EFF49C3/Karl-Marx.jpg", x: 700, y: 250 },
   { id: 5, title: "Marksizm", description: "", x: 820, y: 280 },
@@ -12,7 +12,7 @@ const nodesData = [
   { id: 12, title: "Rozwój społeczeństwa", description: "", x: 1000, y: 400 },
   { id: 13, title: "Prawa człowieka", description: "", x: 1120, y: 370 },
   
-  { id: 7, title: "Nihilizm", description: "", x: 150, y: 300 },
+  { id: 7, title: "Nihilizm", description: "", x: 180, y: 390 },
   { id: 8, title: "Empiryzm", description: "", x: 400, y: 320 },
   { id: 9, title: "Modernizm", description: "", x: 650, y: 220 },
   { id: 10, title: "Surrealizm", description: "", x: 900, y: 150 },
