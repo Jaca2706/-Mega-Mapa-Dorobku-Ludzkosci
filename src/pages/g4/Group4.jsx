@@ -61,21 +61,7 @@ const nodesData = [
 { id: 46, title: "Rewolucja Przemyslowa", description: "", x: 750, y: 1200 },
 { id: 47, title: "Wielka Rewolucja Francuska", description: "", x: 950, y: 1250 },
 { id: 48, title: "Rewolucja Bolszewicka", description: "", x: 1150, y: 1200 }
-  { id: 34, title: "Egalitaryzm", description: "", x: 500, y: 900 },
-  { id: 35, title: "Friedrich Nietzsche", description: "", x: 800, y: 880 },
-  { id: 36, title: "Olga Tokarczuk", description: "", x: 800, y: 880 },
-  { id: 37, title: "George Orwell", description: "", x: 800, y: 880 },
-  { id: 38, title: "Franz Kafka", description: "", x: 800, y: 880 },
-  { id: 39, title: "Frida Kahlo", description: "", x: 800, y: 880 },
-  { id: 40, title: "Pablo Picasso", description: "", x: 800, y: 880 },
-  { id: 41, title: "Blaise Pascal", description: "", x: 800, y: 880 },
-  { id: 42, title: "Eratostenes", description: "", x: 800, y: 880 },
-  { id: 43, title: "Hung", description: "", x: 800, y: 880 },
-  { id: 44, title: "Swiety Franciszek", description: "", x: 800, y: 880 },
-  { id: 45, title: "Mojzesz", description: "", x: 800, y: 880 },
-  { id: 46, title: "Rewolucja Przemyslowa", description: "", x: 800, y: 880 },
-  { id: 47, title: "Wielka Rewolucja Francuska", description: "", x: 800, y: 880 },
-  { id: 48, title: "Rewolucja Bolszewicka", description: "", x: 800, y: 880 },
+
 ];
 const connections = [
   { from: 6, to: 1 },
