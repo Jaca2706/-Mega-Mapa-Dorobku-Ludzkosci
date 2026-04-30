@@ -52,6 +52,7 @@ export default function Group2() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [expandAll, setExpandAll] = useState(false);
+  const [catDropdownOpen, setCatDropdownOpen] = useState(false);
   const cardRefs = useRef({});
 
   // Scroll listener for scroll-to-top button
@@ -219,23 +220,35 @@ export default function Group2() {
         {/* Legend (type filters) */}
         <Legend activeTypes={activeTypes} onToggleType={toggleType} />
 
-        {/* Category Filters */}
-        <div className="g2-category-filters">
+        {/* Category Filters — Dropdown */}
+        <div className="g2-cat-dropdown">
           <button
-            className={`g2-cat-chip${activeCategory === null ? " active" : ""}`}
-            onClick={() => { setActiveCategory(null); setOpenId(null); }}
+            className={`g2-cat-trigger${catDropdownOpen ? " open" : ""}${activeCategory ? " has-filter" : ""}`}
+            onClick={() => setCatDropdownOpen((p) => !p)}
           >
-            Wszystkie
+            <span className="g2-cat-trigger-icon">🏷️</span>
+            <span>{activeCategory || "Wszystkie kategorie"}</span>
+            <span className={`g2-cat-chevron${catDropdownOpen ? " open" : ""}`}>▾</span>
           </button>
-          {allCategories.map((cat) => (
-            <button
-              key={cat}
-              className={`g2-cat-chip${activeCategory === cat ? " active" : ""}`}
-              onClick={() => { setActiveCategory(activeCategory === cat ? null : cat); setOpenId(null); }}
-            >
-              {cat}
-            </button>
-          ))}
+          {catDropdownOpen && (
+            <div className="g2-cat-panel">
+              <button
+                className={`g2-cat-chip${activeCategory === null ? " active" : ""}`}
+                onClick={() => { setActiveCategory(null); setOpenId(null); setCatDropdownOpen(false); }}
+              >
+                Wszystkie
+              </button>
+              {allCategories.map((cat) => (
+                <button
+                  key={cat}
+                  className={`g2-cat-chip${activeCategory === cat ? " active" : ""}`}
+                  onClick={() => { setActiveCategory(activeCategory === cat ? null : cat); setOpenId(null); setCatDropdownOpen(false); }}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Mini Timeline Map */}
