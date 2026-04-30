@@ -1,34 +1,20 @@
 import { DIM_LABELS } from "../constants.js";
 
+const DIM_ICONS = {
+  psychologicalTime: "🕰️",
+  technicalLevel: "⚙️",
+  globalContext: "🌐",
+};
+
 export default function DimensionsPanel({ dimensions }) {
   return (
-    <div
-      style={{
-        marginBottom: 16,
-        padding: 12,
-        background: "rgba(255,255,255,0.03)",
-        borderRadius: 8,
-        border: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      <div
-        style={{
-          fontSize: 10,
-          fontWeight: 700,
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          color: "#666",
-          marginBottom: 10,
-        }}
-      >
-        Wymiary
-      </div>
+    <div className="g2-panel">
+      <div className="g2-panel-title">Wymiary</div>
       {Object.entries(dimensions).map(([key, val]) => (
-        <div key={key} style={{ display: "flex", gap: 8, marginBottom: 6, alignItems: "flex-start" }}>
-          <span style={{ fontSize: 11, color: "#666", flexShrink: 0, minWidth: 130 }}>
-            {DIM_LABELS[key] || key}
-          </span>
-          <span style={{ fontSize: 12, color: "#aaa", fontStyle: "italic" }}>{val}</span>
+        <div key={key} className="g2-dim-row">
+          <span className="g2-dim-icon">{DIM_ICONS[key] || "•"}</span>
+          <span className="g2-dim-label">{DIM_LABELS[key] || key}</span>
+          <span className="g2-dim-value">{val}</span>
         </div>
       ))}
     </div>

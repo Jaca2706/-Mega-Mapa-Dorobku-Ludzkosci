@@ -1,32 +1,28 @@
 import { TYPE_CONFIG } from "../constants.js";
 
-export default function Legend() {
+export default function Legend({ activeTypes, onToggleType }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: 16,
-        flexWrap: "wrap",
-        marginBottom: 32,
-        padding: "10px 16px",
-        background: "rgba(255,255,255,0.03)",
-        borderRadius: 8,
-        border: "1px solid rgba(255,255,255,0.07)",
-      }}
-    >
+    <div className="g2-legend">
       {Object.entries(TYPE_CONFIG).map(([type, cfg]) => (
-        <div key={type} style={{ display: "flex", alignItems: "center", gap: 7 }}>
+        <button
+          key={type}
+          className={`g2-legend-btn${!activeTypes.has(type) ? " dimmed" : ""}`}
+          onClick={() => onToggleType(type)}
+          style={{
+            borderColor: activeTypes.has(type) ? cfg.border : undefined,
+            color: activeTypes.has(type) ? cfg.color : "#666",
+          }}
+        >
           <div
+            className="g2-legend-dot"
             style={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
               background: cfg.dot,
-              flexShrink: 0,
+              boxShadow: activeTypes.has(type) ? `0 0 8px ${cfg.dot}` : "none",
             }}
           />
-          <span style={{ fontSize: 12, color: "#888" }}>{cfg.label}</span>
-        </div>
+          <span>{cfg.label}</span>
+          <span style={{ fontSize: 14 }}>{cfg.icon}</span>
+        </button>
       ))}
     </div>
   );

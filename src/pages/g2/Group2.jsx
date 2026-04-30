@@ -1,7 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { historyData } from "./epochsData.js";
+import { TYPE_CONFIG } from "./constants.js";
 import Legend from "./components/Legend.jsx";
 import TimelineCard from "./components/TimelineCard.jsx";
+import "./Group2.css";
 
 function normalize(str) {
   return str
@@ -46,29 +48,69 @@ function matchesQuery(item, query) {
 export default function Group2() {
   const [openId, setOpenId] = useState(null);
   const [query, setQuery] = useState("");
+  const [activeTypes, setActiveTypes] = useState(new Set(["event", "work", "trend"]));
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [expandAll, setExpandAll] = useState(false);
   const cardRefs = useRef({});
 
-  const sorted = [...historyData].sort(
-    (a, b) => parseInt(a.time.start) - parseInt(b.time.start)
+  // Scroll listener for scroll-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Extract unique categories from data
+  const allCategories = useMemo(() => {
+    const cats = new Set();
+    historyData.forEach((item) => {
+      (item.categories ?? []).forEach((c) => cats.add(c));
+    });
+    return [...cats].sort();
+  }, []);
+
+  // Sort and filter
+  const sorted = useMemo(
+    () => [...historyData].sort((a, b) => parseInt(a.time.start) - parseInt(b.time.start)),
+    []
   );
 
-  const filtered = sorted.filter((item) => matchesQuery(item, query));
+  const filtered = useMemo(() => {
+    return sorted.filter((item) => {
+      if (!activeTypes.has(item.type)) return false;
+      if (activeCategory && !(item.categories ?? []).includes(activeCategory)) return false;
+      return matchesQuery(item, query);
+    });
+  }, [sorted, activeTypes, activeCategory, query]);
 
-  const toggle = (id) => setOpenId((prev) => (prev === id ? null : id));
+  // Stats
+  const stats = useMemo(() => {
+    const types = { event: 0, work: 0, trend: 0 };
+    const countries = new Set();
+    historyData.forEach((item) => {
+      types[item.type] = (types[item.type] || 0) + 1;
+      if (item.country) countries.add(item.country);
+    });
+    return { types, countryCount: countries.size, total: historyData.length };
+  }, []);
+
+  const toggle = (id) => {
+    if (expandAll) setExpandAll(false);
+    setOpenId((prev) => (prev === id ? null : id));
+  };
 
   const scrollToItem = (targetId) => {
-    // Check if target is currently visible
     const isVisible = filtered.some((item) => item.id === targetId);
-
     if (!isVisible) {
-      // Reset search so the item becomes visible
       setQuery("");
+      setActiveTypes(new Set(["event", "work", "trend"]));
+      setActiveCategory(null);
     }
-
-    // Open the card and scroll to it
     setOpenId(targetId);
-
-    // Use setTimeout to wait for DOM update after potential query reset
+    if (expandAll) setExpandAll(false);
     setTimeout(() => {
       const el = cardRefs.current[targetId];
       if (el) {
@@ -80,118 +122,175 @@ export default function Group2() {
   const setTagQuery = (tag) => {
     setQuery(`#${tag}`);
     setOpenId(null);
+    setExpandAll(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#0e0e11",
-        color: "#e8e0d0",
-        fontFamily: "'Segoe UI', 'Helvetica Neue', sans-serif",
-        padding: "40px 24px 60px",
-      }}
-    >
-      <style>{`
-        @keyframes fadeSlide {
-          from { opacity: 0; transform: translateY(-8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .search-input::placeholder { color: #555; }
-        .search-input:focus { outline: none; border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.07); }
-        .tag-chip:hover { background: rgba(255,255,255,0.12) !important; color: #ccc !important; cursor: pointer; }
-      `}</style>
+  const toggleType = (type) => {
+    setActiveTypes((prev) => {
+      const next = new Set(prev);
+      if (next.has(type)) {
+        if (next.size > 1) next.delete(type);
+      } else {
+        next.add(type);
+      }
+      return next;
+    });
+    setOpenId(null);
+  };
 
-      <div style={{ maxWidth: 680, margin: "0 auto" }}>
+  const handleExpandAll = () => {
+    setExpandAll((prev) => !prev);
+    setOpenId(null);
+  };
+
+  const isCardOpen = (id) => expandAll || openId === id;
+
+  // Minimap range
+  const timeRange = useMemo(() => {
+    if (filtered.length === 0) return { min: 0, max: 2025 };
+    const starts = filtered.map((i) => parseInt(i.time.start));
+    return { min: Math.min(...starts), max: Math.max(...starts) };
+  }, [filtered]);
+
+  const fullRange = useMemo(() => {
+    const starts = sorted.map((i) => parseInt(i.time.start));
+    return { min: Math.min(...starts), max: Math.max(...starts) };
+  }, [sorted]);
+
+  return (
+    <div className="g2-root">
+      <div className="g2-inner">
 
         {/* Header */}
-        <div style={{ marginBottom: 40 }}>
-          <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#666", marginBottom: 10 }}>
-            Model infografiki · Grupa 2
-          </div>
-          <h1
-            style={{
-              fontFamily: "'Georgia', 'Times New Roman', serif",
-              fontSize: 28,
-              fontWeight: 700,
-              color: "#f0e8d8",
-              margin: "0 0 8px 0",
-              lineHeight: 1.2,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Oś Przejść
-          </h1>
-          <p style={{ fontSize: 14, color: "#666", margin: 0, fontStyle: "italic", letterSpacing: "0.02em" }}>
+        <div className="g2-header">
+          <div className="g2-header-label">Model infografiki · Grupa 2</div>
+          <h1 className="g2-header-title">Oś Przejść</h1>
+          <p className="g2-header-subtitle">
             Zmiany postrzegania świata — chronologiczna oś wydarzeń, dzieł i nurtów
           </p>
-          <div style={{ marginTop: 16, height: 1, background: "linear-gradient(to right, rgba(255,255,255,0.12), transparent)" }} />
+          <div className="g2-header-line" />
+        </div>
+
+        {/* Stats */}
+        <div className="g2-stats">
+          <div className="g2-stat-chip">
+            <span className="stat-icon">📊</span>
+            <span className="stat-value">{stats.total}</span> elementów
+          </div>
+          <div className="g2-stat-chip">
+            <span className="stat-icon">⚡</span>
+            <span className="stat-value">{stats.types.event}</span> wydarzeń
+          </div>
+          <div className="g2-stat-chip">
+            <span className="stat-icon">📜</span>
+            <span className="stat-value">{stats.types.work}</span> dzieł
+          </div>
+          <div className="g2-stat-chip">
+            <span className="stat-icon">〰</span>
+            <span className="stat-value">{stats.types.trend}</span> nurtów
+          </div>
+          <div className="g2-stat-chip">
+            <span className="stat-icon">🌍</span>
+            <span className="stat-value">{stats.countryCount}</span> regionów
+          </div>
         </div>
 
         {/* Search */}
-        <div style={{ marginBottom: 24, position: "relative" }}>
-          <svg
-            width="15" height="15" viewBox="0 0 15 15" fill="none"
-            style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}
-          >
-            <circle cx="6.5" cy="6.5" r="5" stroke="#555" strokeWidth="1.4" />
-            <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#555" strokeWidth="1.4" strokeLinecap="round" />
+        <div className="g2-search-wrap">
+          <svg className="g2-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+            <line x1="11" y1="11" x2="15" y2="15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
           <input
-            className="search-input"
+            className={`g2-search-input${query.startsWith("#") ? " tag-mode" : ""}`}
             type="text"
             placeholder="Szukaj po nazwie, roku… lub #tag"
             value={query}
-            onChange={(e) => { setQuery(e.target.value); setOpenId(null); }}
-            style={{
-              width: "100%",
-              boxSizing: "border-box",
-              background: query.startsWith("#") ? "rgba(142,68,173,0.08)" : "rgba(255,255,255,0.04)",
-              border: `1px solid ${query.startsWith("#") ? "rgba(142,68,173,0.4)" : "rgba(255,255,255,0.1)"}`,
-              borderRadius: 10,
-              padding: "11px 40px 11px 40px",
-              fontSize: 14,
-              color: query.startsWith("#") ? "#b08fd4" : "#e8e0d0",
-              transition: "border-color 0.2s ease, background 0.2s ease, color 0.2s ease",
-            }}
+            onChange={(e) => { setQuery(e.target.value); setOpenId(null); setExpandAll(false); }}
           />
           {query && (
-            <button
-              onClick={() => { setQuery(""); setOpenId(null); }}
-              style={{
-                position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
-                background: "none", border: "none", cursor: "pointer", color: "#555",
-                fontSize: 18, lineHeight: 1, padding: "0 2px", transition: "color 0.15s ease",
-              }}
-              onMouseEnter={(e) => (e.target.style.color = "#aaa")}
-              onMouseLeave={(e) => (e.target.style.color = "#555")}
-            >
+            <button className="g2-search-clear" onClick={() => { setQuery(""); setOpenId(null); }}>
               ×
             </button>
           )}
         </div>
 
-        <Legend />
+        {/* Legend (type filters) */}
+        <Legend activeTypes={activeTypes} onToggleType={toggleType} />
 
-        {/* Results count */}
-        {query.trim() && (
-          <div style={{ fontSize: 12, color: "#555", marginBottom: 16, marginTop: -16 }}>
-            {filtered.length === 0
-              ? "Brak wyników"
-              : `${filtered.length} z ${historyData.length} elementów${query.startsWith("#") ? ` · tag: ${query}` : ""}`}
+        {/* Category Filters */}
+        <div className="g2-category-filters">
+          <button
+            className={`g2-cat-chip${activeCategory === null ? " active" : ""}`}
+            onClick={() => { setActiveCategory(null); setOpenId(null); }}
+          >
+            Wszystkie
+          </button>
+          {allCategories.map((cat) => (
+            <button
+              key={cat}
+              className={`g2-cat-chip${activeCategory === cat ? " active" : ""}`}
+              onClick={() => { setActiveCategory(activeCategory === cat ? null : cat); setOpenId(null); }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Mini Timeline Map */}
+        <div className="g2-minimap">
+          <div className="g2-minimap-bar">
+            {fullRange.max !== fullRange.min && (
+              <div
+                className="g2-minimap-fill"
+                style={{
+                  left: `${((timeRange.min - fullRange.min) / (fullRange.max - fullRange.min)) * 100}%`,
+                  width: `${Math.max(2, ((timeRange.max - timeRange.min) / (fullRange.max - fullRange.min)) * 100)}%`,
+                }}
+              />
+            )}
           </div>
-        )}
+          <div className="g2-minimap-labels">
+            <span>{fullRange.min < 0 ? `${Math.abs(fullRange.min)} p.n.e.` : fullRange.min}</span>
+            <span>{filtered.length} z {historyData.length} widocznych</span>
+            <span>{fullRange.max}</span>
+          </div>
+        </div>
+
+        {/* Toolbar */}
+        <div className="g2-toolbar">
+          <div className="g2-toolbar-left">
+            {query.trim() || activeCategory || activeTypes.size < 3 ? (
+              <>
+                <strong>{filtered.length}</strong> z {historyData.length} elementów
+                {query.startsWith("#") ? ` · tag: ${query}` : ""}
+              </>
+            ) : (
+              <>{historyData.length} elementów</>
+            )}
+          </div>
+          <div className="g2-toolbar-btns">
+            <button className="g2-btn" onClick={handleExpandAll}>
+              {expandAll ? "⊟ Zwiń" : "⊞ Rozwiń"} wszystko
+            </button>
+          </div>
+        </div>
 
         {/* Timeline */}
-        <div style={{ position: "relative" }}>
+        <div className="g2-timeline">
           {filtered.length > 0 ? (
             filtered.map((item, i) => (
-              <div key={item.id} ref={(el) => (cardRefs.current[item.id] = el)}>
+              <div
+                key={item.id}
+                ref={(el) => (cardRefs.current[item.id] = el)}
+                className="g2-card-row"
+                style={{ animationDelay: `${Math.min(i * 40, 600)}ms` }}
+              >
                 <TimelineCard
                   item={item}
                   index={i}
-                  isOpen={openId === item.id}
+                  isOpen={isCardOpen(item.id)}
                   onToggle={() => toggle(item.id)}
                   allData={historyData}
                   onRelationClick={scrollToItem}
@@ -200,28 +299,28 @@ export default function Group2() {
               </div>
             ))
           ) : (
-            <div style={{ textAlign: "center", padding: "48px 0", color: "#444", fontSize: 14, fontStyle: "italic" }}>
-              Nie znaleziono żadnych elementów dla „{query}"
+            <div className="g2-empty">
+              <div className="g2-empty-icon">🔍</div>
+              Nie znaleziono żadnych elementów
+              {query && <> dla „{query}"</>}
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div
-          style={{
-            marginTop: 24,
-            paddingTop: 20,
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-            fontSize: 11,
-            color: "#444",
-            textAlign: "center",
-            letterSpacing: "0.05em",
-          }}
-        >
+        <div className="g2-footer">
           {historyData.length} elementów w bazie · dane z baza.js
         </div>
-
       </div>
+
+      {/* Scroll-to-Top */}
+      <button
+        className={`g2-scroll-top${showScrollTop ? " visible" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Wróć na górę"
+      >
+        ↑
+      </button>
     </div>
   );
 }
