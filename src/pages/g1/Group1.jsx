@@ -174,25 +174,13 @@ function Group1() {
                               
                               {item.country && (
                                 <div className="event-meta">
-                                  <span className="event-country">🌍 {item.country}</span>
+                                  <span className="event-country">Kraj: {item.country}</span>
                                 </div>
                               )}
                               
                               {item.categories && item.categories.length > 0 && (
                                 <div className="event-categories">
-                                  📂 Kategorie: {item.categories.join(", ")}
-                                </div>
-                              )}
-                              
-                              {item.tags && item.tags.length > 0 && (
-                                <div className="event-tags">
-                                  🏷️ Tagi: {item.tags.join(", ")}
-                                </div>
-                              )}
-
-                              {item.media?.image && (
-                                <div className="event-media">
-                                  <img src={item.media.image} alt={item.title} />
+                                   Kategoria: {item.categories.join(", ")}
                                 </div>
                               )}
                             </div>
